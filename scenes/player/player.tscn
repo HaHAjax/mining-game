@@ -6,6 +6,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dovo2"]
 albedo_texture = ExtResource("1_8afob")
+uv1_triplanar = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7iv0w"]
 material = SubResource("StandardMaterial3D_dovo2")
