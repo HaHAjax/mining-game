@@ -14,7 +14,7 @@ material = SubResource("StandardMaterial3D_dovo2")
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_gmlin")
-jump_velocity = 2.5
+jump_velocity = 5.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_7iv0w")
