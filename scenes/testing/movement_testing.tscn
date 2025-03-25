@@ -9,12 +9,12 @@ sky_horizon_color = Color(0.420308, 0.684918, 0.88696, 1)
 ground_bottom_color = Color(0.0939905, 0.124491, 0.425618, 1)
 ground_horizon_color = Color(0.45486, 0.680904, 0.867725, 1)
 
-[sub_resource type="Sky" id="Sky_0wfyh"]
+[sub_resource type="Sky" id="Sky_jbrqe"]
 sky_material = SubResource("ProceduralSkyMaterial_in30n")
 
 [sub_resource type="Environment" id="Environment_kn2px"]
 background_mode = 2
-sky = SubResource("Sky_0wfyh")
+sky = SubResource("Sky_jbrqe")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
 albedo_texture = ExtResource("2_se8ch")
@@ -51,7 +51,6 @@ transform = Transform3D(0.606739, -0.733131, -0.307224, 0.362482, -0.0887915, 0.
 
 [node name="Player" parent="." instance=ExtResource("1_jbrqe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
-jump_velocity = 5.0
 
 [node name="Floor" type="StaticBody3D" parent="."]
 
