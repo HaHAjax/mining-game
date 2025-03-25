@@ -1,4 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://x4krb1dfjd6k"]
+[gd_scene load_steps=8 format=3 uid="uid://x4krb1dfjd6k"]
+
+[ext_resource type="PackedScene" uid="uid://dsed1w0exrxkf" path="res://scenes/player/player.tscn" id="1_t1vth"]
+[ext_resource type="MeshLibrary" uid="uid://db42a4v0apk5a" path="res://resources/testing/mesh_library_test.tres" id="3_imdpu"]
+[ext_resource type="Script" uid="uid://ccsh7huvgk18m" path="res://scenes/testing/gen_testing/generation.gd" id="5_hhcho"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2ctto"]
 sky_top_color = Color(0.220681, 0.423697, 0.832193, 1)
@@ -13,6 +17,8 @@ sky_material = SubResource("ProceduralSkyMaterial_2ctto")
 background_mode = 2
 sky = SubResource("Sky_0wfyh")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_45kte"]
+
 [node name="GenTesting" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -20,3 +26,12 @@ environment = SubResource("Environment_cpgsw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.606739, -0.733131, -0.307224, 0.362482, -0.0887915, 0.927751, -0.707443, -0.674266, 0.211874, 0, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_t1vth")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("3_imdpu")
+physics_material = SubResource("PhysicsMaterial_45kte")
+cell_size = Vector3(1, 1, 1)
+script = ExtResource("5_hhcho")
