@@ -1,0 +1,10 @@
+[gd_resource type="BoxMesh" load_steps=3 format=3 uid="uid://dexeg0tlor841"]
+
+[ext_resource type="Texture2D" uid="uid://6twgl5e50xvh" path="res://addons/kenney_prototype_textures/green/texture_10.png" id="1_g66ed"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7y04"]
+albedo_texture = ExtResource("1_g66ed")
+uv1_triplanar = true
+
+[resource]
+material = SubResource("StandardMaterial3D_o7y04")
