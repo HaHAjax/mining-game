@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtcg104764pwd"]
+
+[ext_resource type="BoxMesh" uid="uid://dexeg0tlor841" path="res://resources/testing/default_block_0.tres" id="1_5d2dh"]
+[ext_resource type="BoxMesh" uid="uid://h0sbcb0h6elu" path="res://resources/testing/default_block_1.tres" id="2_hnw1i"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5d2dh"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hnw1i"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="MeshLibraryRoot" type="Node3D"]
+
+[node name="GreenCube" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_5d2dh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="GreenCube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GreenCube/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_5d2dh")
+
+[node name="PurpleCube" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_hnw1i")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PurpleCube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PurpleCube/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_hnw1i")
