@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://x4krb1dfjd6k"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2ctto"]
+sky_top_color = Color(0.220681, 0.423697, 0.832193, 1)
+sky_horizon_color = Color(0.420308, 0.684918, 0.88696, 1)
+ground_bottom_color = Color(0.0939905, 0.124491, 0.425618, 1)
+ground_horizon_color = Color(0.45486, 0.680904, 0.867725, 1)
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_2ctto")
+
+[sub_resource type="Environment" id="Environment_cpgsw"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+
+[node name="GenTesting" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cpgsw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.606739, -0.733131, -0.307224, 0.362482, -0.0887915, 0.927751, -0.707443, -0.674266, 0.211874, 0, 0, 0)
