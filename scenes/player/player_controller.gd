@@ -85,27 +85,18 @@ func update_movement(delta: float) -> void:
 func update_mining() -> void:
 	if is_mining.call() and can_mine.call():
 		if is_looking_at_mineable.call():
-			var block_position := Vector3.ZERO
 
-			block_position = raycast_node.get_collision_point() - raycast_node.get_collision_normal()
+			# Getting the block position
+			var block_position := raycast_node.get_collision_point() - raycast_node.get_collision_normal()
 
-			if raycast_node.get_collision_normal().x == -1:
-				block_position.x -= 1
-			elif raycast_node.get_collision_normal().x == 1:
-				pass
-			elif raycast_node.get_collision_normal().y == -1:
-				block_position.y -= 1
-			elif raycast_node.get_collision_normal().y == 1:
-				pass
-			elif raycast_node.get_collision_normal().z == -1:
-				block_position.z -= 1
-			elif raycast_node.get_collision_normal().z == 1:
-				pass
+			# Fixing the position to be accurate
+			if raycast_node.get_collision_normal().x == -1 or raycast_node.get_collision_normal().y == -1 or raycast_node.get_collision_normal().z == -1:
+				block_position = Vector3.ZERO
 			
 			# For debugging
-			print("Collision normal: ", block_position - raycast_node.get_collision_point())
-			print("Collision point: ", raycast_node.get_collision_point())
-			print("Combined: ", block_position)
+			# print("Collision normal: ", block_position - raycast_node.get_collision_point())
+			# print("Collision point: ", raycast_node.get_collision_point())
+			# print("Combined: ", block_position)
 
 			raycast_node.get_collider().destroy_block(block_position)
 
