@@ -31,7 +31,7 @@ func _ready() -> void:
 func destroy_block(world_coordinate: Vector3) -> void:
 	var map_coordinate := local_to_map(world_coordinate)
 
-	# print("Output value: ", map_coordinate)
+	# print("map_coordinate: ", map_coordinate)
 
 	set_cell_item(map_coordinate, -1)
 

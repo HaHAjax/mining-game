@@ -50,7 +50,7 @@ func update_input() -> void:
 	input_jump = Input.is_action_just_pressed("jump")
 
 	# Mine
-	input_mine = Input.is_action_pressed("mine")
+	input_mine = Input.is_action_just_pressed("mine")
 
 	pass
 
@@ -89,9 +89,13 @@ func update_mining() -> void:
 			# Getting the block position
 			var block_position := raycast_node.get_collision_point() - raycast_node.get_collision_normal()
 
-			# Fixing the position to be accurate
-			if raycast_node.get_collision_normal().x == -1 or raycast_node.get_collision_normal().y == -1 or raycast_node.get_collision_normal().z == -1:
-				block_position = Vector3.ZERO
+			# Fixing the position to be accurate on certain edge cases
+			if raycast_node.get_collision_normal().x == -1:
+				block_position.x -= 1
+			if raycast_node.get_collision_normal().y == -1:
+				block_position.y -= 1
+			if raycast_node.get_collision_normal().z == -1:
+				block_position.z -= 1
 			
 			# For debugging
 			# print("Collision normal: ", block_position - raycast_node.get_collision_point())
