@@ -103,6 +103,8 @@ func update_mining() -> void:
 			# print("Combined: ", block_position)
 
 			raycast_node.get_collider().destroy_block(block_position)
+			var modified_block_position: Vector3i = raycast_node.get_collider().local_to_map(block_position)
+			raycast_node.get_collider().generate_new_blocks(modified_block_position, raycast_node.get_collision_normal())
 
 
 	pass
