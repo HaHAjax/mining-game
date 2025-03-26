@@ -27,3 +27,11 @@ func _ready() -> void:
 					set_cell_item(Vector3i(x, y, z) + origin_offset, which_block_to_use)
 
 	# pass
+
+func destroy_block(world_coordinate: Vector3) -> void:
+	var map_coordinate := local_to_map(world_coordinate)
+
+	# print("Output value: ", map_coordinate)
+
+	set_cell_item(map_coordinate, -1)
+
