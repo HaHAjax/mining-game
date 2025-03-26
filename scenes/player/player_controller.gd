@@ -16,8 +16,13 @@ var input_mine := false
 # Helper lambda functions
 var is_moving := func() -> bool: return input_direction != Vector2.ZERO
 var is_mining := func() -> bool: return input_mine
+var can_mine := func() -> bool: return raycast_node.is_colliding()
+var is_looking_at_mineable := func() -> bool: return raycast_node.get_collider().has_method("destroy_block")
 var can_jump := func() -> bool: return is_on_floor()
 var attempting_jump := func() -> bool: return input_jump
+
+# References to node(s)
+@onready var raycast_node := $Camera3D/RayCast3D as RayCast3D
 
 
 func _ready():
@@ -31,6 +36,9 @@ func _physics_process(delta: float) -> void:
 	# Updating player movement
 	update_movement(delta)
 
+	# Updating mining operation
+	update_mining()
+
 	pass
 
 
@@ -42,7 +50,7 @@ func update_input() -> void:
 	input_jump = Input.is_action_just_pressed("jump")
 
 	# Mine
-	input_mine = Input.is_action_just_pressed("mine")
+	input_mine = Input.is_action_pressed("mine")
 
 	pass
 
@@ -70,5 +78,36 @@ func update_movement(delta: float) -> void:
 
 	# Always required when moving stuff
 	move_and_slide()
+
+	pass
+
+
+func update_mining() -> void:
+	if is_mining.call() and can_mine.call():
+		if is_looking_at_mineable.call():
+			var block_position := Vector3.ZERO
+
+			block_position = raycast_node.get_collision_point() - raycast_node.get_collision_normal()
+
+			if raycast_node.get_collision_normal().x == -1:
+				block_position.x -= 1
+			elif raycast_node.get_collision_normal().x == 1:
+				pass
+			elif raycast_node.get_collision_normal().y == -1:
+				block_position.y -= 1
+			elif raycast_node.get_collision_normal().y == 1:
+				pass
+			elif raycast_node.get_collision_normal().z == -1:
+				block_position.z -= 1
+			elif raycast_node.get_collision_normal().z == 1:
+				pass
+			
+			# For debugging
+			print("Collision normal: ", block_position - raycast_node.get_collision_point())
+			print("Collision point: ", raycast_node.get_collision_point())
+			print("Combined: ", block_position)
+
+			raycast_node.get_collider().destroy_block(block_position)
+
 
 	pass
