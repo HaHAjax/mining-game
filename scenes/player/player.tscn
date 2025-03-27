@@ -59,3 +59,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_lvxji")
 stretch_mode = 2
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0)
+omni_range = 26.035

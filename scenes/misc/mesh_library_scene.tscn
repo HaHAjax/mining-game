@@ -1,9 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtcg104764pwd"]
+[gd_scene load_steps=8 format=3 uid="uid://dtcg104764pwd"]
 
-[ext_resource type="Texture2D" uid="uid://ikiyu3noxpmh" path="res://assets/textures/default_blocks/seaside_rock_diff_4k.jpg" id="1_hnw1i"]
-[ext_resource type="Texture2D" uid="uid://bv32jdsee2hyu" path="res://assets/textures/default_blocks/seaside_rock_nor_gl_4k.png" id="2_gtn7n"]
-[ext_resource type="Texture2D" uid="uid://dapdevdkdgwr3" path="res://assets/textures/default_blocks/seaside_rock_disp_4k.png" id="2_n4hij"]
-[ext_resource type="Texture2D" uid="uid://ctyclysrurjda" path="res://assets/textures/default_blocks/seaside_rock_rough_4k.png" id="3_n4hij"]
+[ext_resource type="Texture2D" uid="uid://72jf1j4ku637" path="res://assets/textures/default_blocks/stone-2.png" id="1_5d2dh"]
+[ext_resource type="Texture2D" uid="uid://cablsilckk1a3" path="res://assets/textures/default_blocks/stone-2_normal.png" id="2_hnw1i"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5d2dh"]
 transparency = 1
@@ -15,13 +13,13 @@ material = SubResource("StandardMaterial3D_5d2dh")
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d2dh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtn7n"]
-albedo_texture = ExtResource("1_hnw1i")
-roughness_texture = ExtResource("3_n4hij")
+albedo_color = Color(0.541972, 0.56576, 0.61732, 1)
+albedo_texture = ExtResource("1_5d2dh")
+metallic_specular = 0.0
 normal_enabled = true
-normal_scale = 1.51
-normal_texture = ExtResource("2_gtn7n")
-heightmap_enabled = true
-heightmap_texture = ExtResource("2_n4hij")
+normal_texture = ExtResource("2_hnw1i")
+uv1_scale = Vector3(1.5, 1.5, 1.5)
+texture_filter = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_ikoww"]
 material = SubResource("StandardMaterial3D_gtn7n")
