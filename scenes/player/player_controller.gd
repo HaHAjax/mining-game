@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
-# The export variables
+# The player stats
+@export_group("Player Stats")
 @export var move_speed := 7.5
 @export var jump_velocity := 10.0
 
@@ -11,6 +12,8 @@ var gravity := -9.8
 var input_direction := Vector2.ZERO
 var input_jump := false
 var input_mine := false
+var input_toggle_flashlight := false
+var input_toggle_lantern := false
 
 
 # Helper lambda functions
@@ -23,16 +26,48 @@ var attempting_jump := func() -> bool: return input_jump
 
 # References to node(s)
 @onready var raycast_node := $Camera3D/RayCast3D as RayCast3D
+@onready var flashlight_light: SpotLight3D = $Camera3D/FlashlightLight
+@onready var lantern_light: OmniLight3D = $LanternLight
+
+# The lights' variables
+var flashlight_enabled := false
+var lantern_enabled := false
+@export_group("Light stats")
+@export_subgroup("Flashlight")
+@export var flashlight_range := 25.0
+@export var flashlight_attenuation := 1.5
+@export var flashlight_color := Color(1, 1, 1)
+@export var flashlight_angle := 20.0
+@export_subgroup("Lantern")
+@export var lantern_range := 30.0
+@export var lantern_attenuation := 1.25
+@export var lantern_color := Color(1, 1, 1)
 
 
 # May be used in the future, here just in case
 func _ready():
-	pass
+	set_light_stats()
+
+
+func set_light_stats() -> void:
+	# Setting the flashlight's stats
+	flashlight_light.spot_range = flashlight_range
+	flashlight_light.spot_attenuation = flashlight_attenuation
+	flashlight_light.light_color = flashlight_color
+	flashlight_light.spot_angle = flashlight_angle
+
+	# Setting the lantern's stats
+	lantern_light.omni_range = lantern_range
+	lantern_light.omni_attenuation = lantern_attenuation
+	lantern_light.light_color = lantern_color
 
 
 func _physics_process(delta: float) -> void:
 	# Updating input variables
 	update_input()
+
+	# Updating lights toggling
+	update_lights()
 
 	# Updating player movement
 	update_movement(delta)
@@ -52,6 +87,12 @@ func update_input() -> void:
 
 	# Mine
 	input_mine = Input.is_action_pressed("mine")
+
+	# Flashlight
+	input_toggle_flashlight = Input.is_action_just_pressed("toggle_flashlight")
+
+	# Lantern
+	input_toggle_lantern = Input.is_action_just_pressed("toggle_lantern")
 
 	pass
 
@@ -79,6 +120,18 @@ func update_movement(delta: float) -> void:
 
 	# Always required when moving stuff
 	move_and_slide()
+
+
+func update_lights() -> void:
+	# Toggling the flashlight
+	if input_toggle_flashlight:
+		flashlight_enabled = false if flashlight_enabled else true
+		flashlight_light.light_energy = 0 if flashlight_enabled else 1
+
+	# Toggling the lantern
+	if input_toggle_lantern:
+		lantern_enabled = false if lantern_enabled else true
+		lantern_light.light_energy = 0 if lantern_enabled else 1
 
 
 func update_mining() -> void:

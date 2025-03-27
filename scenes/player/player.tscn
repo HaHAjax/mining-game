@@ -34,6 +34,12 @@ player = NodePath("..")
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -25)
 
+[node name="FlashlightLight" type="SpotLight3D" parent="Camera3D"]
+unique_name_in_owner = true
+spot_range = 25.0
+spot_attenuation = 1.5
+spot_angle = 20.0
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
@@ -60,6 +66,7 @@ grow_vertical = 2
 texture = ExtResource("4_lvxji")
 stretch_mode = 2
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="LanternLight" type="OmniLight3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0)
 omni_range = 26.035
