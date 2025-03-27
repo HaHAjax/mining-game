@@ -25,6 +25,7 @@ var attempting_jump := func() -> bool: return input_jump
 @onready var raycast_node := $Camera3D/RayCast3D as RayCast3D
 
 
+# May be used in the future, here just in case
 func _ready():
 	pass
 
@@ -79,8 +80,6 @@ func update_movement(delta: float) -> void:
 	# Always required when moving stuff
 	move_and_slide()
 
-	pass
-
 
 func update_mining() -> void:
 	if is_mining.call() and can_mine.call():
@@ -102,9 +101,9 @@ func update_mining() -> void:
 			# print("Collision point: ", raycast_node.get_collision_point())
 			# print("Combined: ", block_position)
 
+			# Destroying the block
 			raycast_node.get_collider().destroy_block(block_position)
-			var modified_block_position: Vector3i = raycast_node.get_collider().local_to_map(block_position)
-			raycast_node.get_collider().generate_new_blocks(modified_block_position)
 
-
-	pass
+			# Generating new blocks around the destroyed block
+			var modified_block_position: Vector3i = raycast_node.get_collider().local_to_map(block_position) # Getting the destroyed block's position on the GridMap
+			raycast_node.get_collider().generate_new_blocks(modified_block_position) # Calling the function to actually generate the blocks

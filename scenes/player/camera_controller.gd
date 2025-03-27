@@ -11,23 +11,26 @@ var max_pitch := 90.0
 
 
 func _ready():
+	# Capturing the mouse on load
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+	# Calculating the desired mouse sensitivity from an arbitrary value between 1 and 100
 	desired_mouse_sensitivity = 1.0 - (mouse_sensitivity / 100.0)
-
-	pass
 
 
 func _input(event: InputEvent) -> void:
+	# If the mouse is moving AND the mouse isn't visible,
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		# Rotate the camera's pitch based on the mouse movement and the sensitivity
 		rotate_x((-event.relative.y * 0.01) * desired_mouse_sensitivity)
-		player.rotate_y((-event.relative.x * 0.01) * desired_mouse_sensitivity)
+		# Clamping the rotation to the min and max pitch
 		rotation.x = clamp(rotation.x, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
+
+		# Rotate the player as well
+		player.rotate_y((-event.relative.x * 0.01) * desired_mouse_sensitivity)
 	
+	# Just "pausing" or "unpausing" the game based on the mouse mode
 	if Input.is_action_just_pressed("pause") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	elif Input.is_action_just_pressed("pause") and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	
-	pass

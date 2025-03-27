@@ -1,15 +1,13 @@
 extends GridMap
 
+# The amount of blocks to spawn on each side
 @onready var blocks_amount_width := Vector3i(1, 1, 1)
-
+# The amount of empty space to spawn in the middle
 @onready var empty_space := Vector3i(8, 4, 8)
-
+# The offset that the blocks will spawn from
 @onready var origin_offset := Vector3i(0, 2, 0)
 
-@onready var halved_blocks_amount_width: Vector3i
-
-@onready var halved_empty_space: Vector3i
-
+# The surrounding blocks, used for generating new blocks (set once so it's not recalculated every time a block is destroyed)
 @onready var surrounding_blocks: Array[Vector3i] = [
 		Vector3i(1, 0, 0), Vector3i(-1, 0, 0),
 		Vector3i(0, 1, 0), Vector3i(0, -1, 0),
@@ -19,8 +17,8 @@ extends GridMap
 
 func _ready() -> void:
 	# Calculating these once for performance
-	halved_blocks_amount_width = Vector3i(ceil(blocks_amount_width.x / 2.0), ceil(blocks_amount_width.y / 2.0), ceil(blocks_amount_width.z / 2.0))
-	halved_empty_space = Vector3i(ceil(empty_space.x / 2.0), ceil(empty_space.y / 2.0), ceil(empty_space.z / 2.0))
+	var halved_blocks_amount_width := Vector3i(ceil(blocks_amount_width.x / 2.0), ceil(blocks_amount_width.y / 2.0), ceil(blocks_amount_width.z / 2.0))
+	var halved_empty_space := Vector3i(ceil(empty_space.x / 2.0), ceil(empty_space.y / 2.0), ceil(empty_space.z / 2.0))
 
 	# Getting all the possible block positions based on blocks_amount_width and empty_space
 	for x in range(-halved_blocks_amount_width.x + -halved_empty_space.x, (halved_blocks_amount_width.x + halved_empty_space.x) + 1):
@@ -32,15 +30,11 @@ func _ready() -> void:
 
 					# For debugging purposes
 					# print("placing block at: ", x, " ", y, " ", z)
-					
-					# Randomly choosing which block to place
-					var which_block_to_use: int = randi_range(1, 2)
 
-					# Actually setting the random block
-					set_cell_item(Vector3i(x, y, z) + origin_offset, which_block_to_use)
-				else:
-					set_cell_item(Vector3i(x, y, z) + origin_offset, 0)
-
+					# Setting the block to default
+					generate_a_block(Vector3i(x, y, z) + origin_offset, false)
+				else: # If the block is inside the empty space, set it to air
+					generate_a_block(Vector3i(x, y, z) + origin_offset, true)
 
 
 func destroy_block(world_coordinate: Vector3) -> void:
@@ -51,13 +45,25 @@ func destroy_block(world_coordinate: Vector3) -> void:
 	# print("map_coordinate: ", map_coordinate)
 
 	# Destroying the block
-	set_cell_item(map_coordinate, 0)
+	generate_a_block(map_coordinate, true)
 
 
 func generate_new_blocks(destroyed_block_position: Vector3i) -> void:
+	# For each surrounding block
 	for offset in surrounding_blocks:
+		# Getting a single block position (around the destroyed block)
 		var temp_block_pos: Vector3i = destroyed_block_position + offset
 
-		# If the block position is an empty space and wasn't the one facing the direction of the side that was destroyed
+		# If the temporary block position is actually fully empty,
 		if get_cell_item(temp_block_pos) == -1:
-			set_cell_item(temp_block_pos, randi_range(1, 2))
+			# Place a block there
+			generate_a_block(temp_block_pos, false)
+
+
+func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
+	if is_air: # If the block is just air,
+		set_cell_item(block_position, 0) # set the block to air;
+	else: # otherwise,
+		set_cell_item(block_position, randi_range(1, 2)) # set the block to default
+
+	pass
