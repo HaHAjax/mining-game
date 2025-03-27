@@ -32,7 +32,7 @@ script = ExtResource("3_lvxji")
 player = NodePath("..")
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -10)
+target_position = Vector3(0, 0, -25)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
