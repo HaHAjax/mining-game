@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsed1w0exrxkf"]
+[gd_scene load_steps=8 format=3 uid="uid://dsed1w0exrxkf"]
 
 [ext_resource type="Texture2D" uid="uid://c24tvuqjgpk4p" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://bjd7i5myioxq2" path="res://scenes/player/player_controller.gd" id="1_gmlin"]
 [ext_resource type="Script" uid="uid://bsd8jia12vvtr" path="res://scenes/player/camera_controller.gd" id="3_lvxji"]
+[ext_resource type="Texture2D" uid="uid://bpy4fnc2fksi5" path="res://assets/ui/hud/temp_crosshair.png" id="4_lvxji"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dovo2"]
 albedo_texture = ExtResource("1_8afob")
@@ -32,3 +33,29 @@ player = NodePath("..")
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -10)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.5
+offset_top = -4.5
+offset_right = 4.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_lvxji")
+stretch_mode = 2
