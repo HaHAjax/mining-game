@@ -10,6 +10,12 @@ extends GridMap
 
 @onready var halved_empty_space: Vector3i
 
+@onready var surrounding_blocks: Array[Vector3i] = [
+		Vector3i(1, 0, 0), Vector3i(-1, 0, 0),
+		Vector3i(0, 1, 0), Vector3i(0, -1, 0),
+		Vector3i(0, 0, 1), Vector3i(0, 0, -1)
+	]
+
 
 func _ready() -> void:
 	# Calculating these once for performance
@@ -49,13 +55,6 @@ func destroy_block(world_coordinate: Vector3) -> void:
 
 
 func generate_new_blocks(destroyed_block_position: Vector3i) -> void:
-
-	var surrounding_blocks: Array[Vector3i] = [
-		Vector3i(1, 0, 0), Vector3i(-1, 0, 0),
-		Vector3i(0, 1, 0), Vector3i(0, -1, 0),
-		Vector3i(0, 0, 1), Vector3i(0, 0, -1)
-	]
-
 	for offset in surrounding_blocks:
 		var temp_block_pos: Vector3i = destroyed_block_position + offset
 
