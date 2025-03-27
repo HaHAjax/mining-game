@@ -12,6 +12,8 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_dovo2")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spyh3"]
+radius = 0.45
+height = 1.95
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_gmlin")

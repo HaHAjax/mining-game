@@ -50,7 +50,7 @@ func update_input() -> void:
 	input_jump = Input.is_action_just_pressed("jump")
 
 	# Mine
-	input_mine = Input.is_action_just_pressed("mine")
+	input_mine = Input.is_action_pressed("mine")
 
 	pass
 
@@ -104,7 +104,7 @@ func update_mining() -> void:
 
 			raycast_node.get_collider().destroy_block(block_position)
 			var modified_block_position: Vector3i = raycast_node.get_collider().local_to_map(block_position)
-			raycast_node.get_collider().generate_new_blocks(modified_block_position, raycast_node.get_collision_normal())
+			raycast_node.get_collider().generate_new_blocks(modified_block_position)
 
 
 	pass

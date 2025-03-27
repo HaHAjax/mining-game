@@ -6,11 +6,15 @@ extends GridMap
 
 @onready var origin_offset := Vector3i(0, 2, 0)
 
+@onready var halved_blocks_amount_width: Vector3i
+
+@onready var halved_empty_space: Vector3i
+
 
 func _ready() -> void:
 	# Calculating these once for performance
-	var halved_blocks_amount_width := Vector3i(ceil(blocks_amount_width.x / 2.0), ceil(blocks_amount_width.y / 2.0), ceil(blocks_amount_width.z / 2.0))
-	var halved_empty_space := Vector3i(ceil(empty_space.x / 2.0), ceil(empty_space.y / 2.0), ceil(empty_space.z / 2.0))
+	halved_blocks_amount_width = Vector3i(ceil(blocks_amount_width.x / 2.0), ceil(blocks_amount_width.y / 2.0), ceil(blocks_amount_width.z / 2.0))
+	halved_empty_space = Vector3i(ceil(empty_space.x / 2.0), ceil(empty_space.y / 2.0), ceil(empty_space.z / 2.0))
 
 	# Getting all the possible block positions based on blocks_amount_width and empty_space
 	for x in range(-halved_blocks_amount_width.x + -halved_empty_space.x, (halved_blocks_amount_width.x + halved_empty_space.x) + 1):
@@ -24,10 +28,13 @@ func _ready() -> void:
 					# print("placing block at: ", x, " ", y, " ", z)
 					
 					# Randomly choosing which block to place
-					var which_block_to_use: int = randi() % 2
+					var which_block_to_use: int = randi_range(1, 2)
 
 					# Actually setting the random block
 					set_cell_item(Vector3i(x, y, z) + origin_offset, which_block_to_use)
+				else:
+					set_cell_item(Vector3i(x, y, z) + origin_offset, 0)
+
 
 
 func destroy_block(world_coordinate: Vector3) -> void:
@@ -38,77 +45,20 @@ func destroy_block(world_coordinate: Vector3) -> void:
 	# print("map_coordinate: ", map_coordinate)
 
 	# Destroying the block
-	set_cell_item(map_coordinate, -1)
+	set_cell_item(map_coordinate, 0)
 
 
-func generate_new_blocks(destroyed_block_position: Vector3i, face_direction: Vector3i) -> void:
-	# # Getting the surrounding blocks
-	# var surrounding_blocks: Array[Vector3i] = [
-	# 	Vector3i(1, 0, 0),
-	# 	Vector3i(-1, 0, 0),
-	# 	Vector3i(0, 1, 0),
-	# 	Vector3i(0, -1, 0),
-	# 	Vector3i(0, 0, 1),
-	# 	Vector3i(0, 0, -1)
-	# ]
+func generate_new_blocks(destroyed_block_position: Vector3i) -> void:
 
-	# # Removing the block in front of the player from the surrounding blocks
-	# match face_direction:
-	# 	Vector3i(1, 0, 0):
-	# 		surrounding_blocks.remove_at(0)
-	# 	Vector3i(-1, 0, 0):
-	# 		surrounding_blocks.remove_at(1)
-	# 	Vector3i(0, 1, 0):
-	# 		surrounding_blocks.remove_at(2)
-	# 	Vector3i(0, -1, 0):
-	# 		surrounding_blocks.remove_at(3)
-	# 	Vector3i(0, 0, 1):
-	# 		surrounding_blocks.remove_at(4)
-	# 	Vector3i(0, 0, -1):
-	# 		surrounding_blocks.remove_at(5)
-	
-	var pass_one_surrounding_blocks := get_valid_surrounding_blocks_pass_one(face_direction)
-	var pass_two_surrounding_blocks := get_valid_surrounding_blocks_pass_two(destroyed_block_position, pass_one_surrounding_blocks, face_direction)
-	
-	# Generate the blocks at the positions
-	for block in pass_two_surrounding_blocks:
-		set_cell_item(block, randi() % 2)
-
-
-	
-	pass
-
-
-
-# Helper functions
-func get_valid_surrounding_blocks_pass_one(face_direction: Vector3i) -> Array[Vector3i]:
 	var surrounding_blocks: Array[Vector3i] = [
-		Vector3i(1, 0, 0),
-		Vector3i(-1, 0, 0),
-		Vector3i(0, 1, 0),
-		Vector3i(0, -1, 0),
-		Vector3i(0, 0, 1),
-		Vector3i(0, 0, -1)
+		Vector3i(1, 0, 0), Vector3i(-1, 0, 0),
+		Vector3i(0, 1, 0), Vector3i(0, -1, 0),
+		Vector3i(0, 0, 1), Vector3i(0, 0, -1)
 	]
 
-	for pos in surrounding_blocks:
-		if pos == face_direction:
-			surrounding_blocks.remove_at(surrounding_blocks.find(pos))
-	return surrounding_blocks
+	for offset in surrounding_blocks:
+		var temp_block_pos: Vector3i = destroyed_block_position + offset
 
-
-func get_valid_surrounding_blocks_pass_two(destroyed_block_position: Vector3i, curr_surrounding_blocks: Array[Vector3i], face_direction: Vector3i) -> Array[Vector3i]:
-	var all_existing_blocks: Array[Vector3i] = get_used_cells()
-
-	var valid_surrounding_blocks: Array[Vector3i] = []
-
-	# print(curr_surrounding_blocks)
-
-	for block_from_curr in curr_surrounding_blocks:
-		if block_from_curr + destroyed_block_position not in all_existing_blocks and block_from_curr != face_direction:
-			valid_surrounding_blocks.append(block_from_curr + destroyed_block_position)
-
-		# if block_from_all == destroyed_block_position + block_from_curr:
-		# 	valid_surrounding_blocks.append(block_from_curr + destroyed_block_position)
-
-	return valid_surrounding_blocks
+		# If the block position is an empty space and wasn't the one facing the direction of the side that was destroyed
+		if get_cell_item(temp_block_pos) == -1:
+			set_cell_item(temp_block_pos, randi_range(1, 2))

@@ -1,15 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtcg104764pwd"]
+[gd_scene load_steps=8 format=3 uid="uid://dtcg104764pwd"]
 
 [ext_resource type="BoxMesh" uid="uid://dexeg0tlor841" path="res://resources/testing/default_block_0.tres" id="1_5d2dh"]
 [ext_resource type="BoxMesh" uid="uid://h0sbcb0h6elu" path="res://resources/testing/default_block_1.tres" id="2_hnw1i"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5d2dh"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5d2dh"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hnw1i"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+[sub_resource type="BoxMesh" id="BoxMesh_hnw1i"]
+material = SubResource("StandardMaterial3D_5d2dh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5d2dh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hnw1i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gtn7n"]
 
 [node name="MeshLibraryRoot" type="Node3D"]
+
+[node name="DestroyedCube" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_hnw1i")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DestroyedCube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DestroyedCube/StaticBody3D"]
+shape = SubResource("BoxShape3D_5d2dh")
+disabled = true
 
 [node name="GreenCube" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_5d2dh")
@@ -17,7 +33,7 @@ mesh = ExtResource("1_5d2dh")
 [node name="StaticBody3D" type="StaticBody3D" parent="GreenCube"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GreenCube/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_5d2dh")
+shape = SubResource("BoxShape3D_hnw1i")
 
 [node name="PurpleCube" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_hnw1i")
@@ -25,4 +41,4 @@ mesh = ExtResource("2_hnw1i")
 [node name="StaticBody3D" type="StaticBody3D" parent="PurpleCube"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PurpleCube/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_hnw1i")
+shape = SubResource("BoxShape3D_gtn7n")
