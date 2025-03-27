@@ -64,6 +64,6 @@ func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
 	if is_air: # If the block is just air,
 		set_cell_item(block_position, 0) # set the block to air;
 	else: # otherwise,
-		set_cell_item(block_position, randi_range(1, 2)) # set the block to default
+		set_cell_item(block_position, 1) # set the block to default
 
 	pass

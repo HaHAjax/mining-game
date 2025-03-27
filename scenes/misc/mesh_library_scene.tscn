@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtcg104764pwd"]
+[gd_scene load_steps=10 format=3 uid="uid://dtcg104764pwd"]
 
-[ext_resource type="BoxMesh" uid="uid://dexeg0tlor841" path="res://resources/testing/default_block_0.tres" id="1_5d2dh"]
-[ext_resource type="BoxMesh" uid="uid://h0sbcb0h6elu" path="res://resources/testing/default_block_1.tres" id="2_hnw1i"]
+[ext_resource type="Texture2D" uid="uid://ikiyu3noxpmh" path="res://assets/textures/default_blocks/seaside_rock_diff_4k.jpg" id="1_hnw1i"]
+[ext_resource type="Texture2D" uid="uid://bv32jdsee2hyu" path="res://assets/textures/default_blocks/seaside_rock_nor_gl_4k.png" id="2_gtn7n"]
+[ext_resource type="Texture2D" uid="uid://dapdevdkdgwr3" path="res://assets/textures/default_blocks/seaside_rock_disp_4k.png" id="2_n4hij"]
+[ext_resource type="Texture2D" uid="uid://ctyclysrurjda" path="res://assets/textures/default_blocks/seaside_rock_rough_4k.png" id="3_n4hij"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5d2dh"]
 transparency = 1
@@ -12,33 +14,36 @@ material = SubResource("StandardMaterial3D_5d2dh")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d2dh"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hnw1i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtn7n"]
+albedo_texture = ExtResource("1_hnw1i")
+roughness_texture = ExtResource("3_n4hij")
+normal_enabled = true
+normal_scale = 1.51
+normal_texture = ExtResource("2_gtn7n")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_n4hij")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gtn7n"]
+[sub_resource type="BoxMesh" id="BoxMesh_ikoww"]
+material = SubResource("StandardMaterial3D_gtn7n")
+subdivide_width = 32
+subdivide_height = 32
+subdivide_depth = 32
 
 [node name="MeshLibraryRoot" type="Node3D"]
 
-[node name="DestroyedCube" type="MeshInstance3D" parent="."]
+[node name="Air" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_hnw1i")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="DestroyedCube"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Air"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DestroyedCube/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Air/StaticBody3D"]
 shape = SubResource("BoxShape3D_5d2dh")
 disabled = true
 
-[node name="GreenCube" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_5d2dh")
+[node name="Stone" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ikoww")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="GreenCube"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Stone"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GreenCube/StaticBody3D"]
-shape = SubResource("BoxShape3D_hnw1i")
-
-[node name="PurpleCube" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_hnw1i")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="PurpleCube"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PurpleCube/StaticBody3D"]
-shape = SubResource("BoxShape3D_gtn7n")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stone/StaticBody3D"]
+shape = SubResource("BoxShape3D_5d2dh")
