@@ -39,8 +39,8 @@ var lantern_enabled := false
 @export var flashlight_color := Color(1, 1, 1)
 @export var flashlight_angle := 20.0
 @export_subgroup("Lantern")
-@export var lantern_range := 30.0
-@export var lantern_attenuation := 1.25
+@export var lantern_range := 20.0
+@export var lantern_attenuation := 1.0
 @export var lantern_color := Color(1, 1, 1)
 
 
@@ -55,6 +55,7 @@ func set_light_stats() -> void:
 	flashlight_light.spot_attenuation = flashlight_attenuation
 	flashlight_light.light_color = flashlight_color
 	flashlight_light.spot_angle = flashlight_angle
+	flashlight_light.light_energy = 0 # Disabling the flaslight for now
 
 	# Setting the lantern's stats
 	lantern_light.omni_range = lantern_range
@@ -124,9 +125,9 @@ func update_movement(delta: float) -> void:
 
 func update_lights() -> void:
 	# Toggling the flashlight
-	if input_toggle_flashlight:
-		flashlight_enabled = false if flashlight_enabled else true
-		flashlight_light.light_energy = 0 if flashlight_enabled else 1
+	# if input_toggle_flashlight:
+	# 	flashlight_enabled = false if flashlight_enabled else true
+	# 	flashlight_light.light_energy = 0 if flashlight_enabled else 1
 
 	# Toggling the lantern
 	if input_toggle_lantern:

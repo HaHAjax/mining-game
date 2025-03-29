@@ -61,16 +61,12 @@ func generate_new_blocks(destroyed_block_position: Vector3i) -> void:
 
 
 func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
-	if is_air: # If the block is just air,
-		set_cell_item(block_position, 0) # set the block to air;
-	else: # otherwise,
-		var random_number := randi() % 4 # generate a random number between 0 and 3
-		var will_it_be_ore := false if random_number > 0 else true # if the random number is 0, the block will be default; otherwise, it will be ore
-		if will_it_be_ore:
-			var random_number_generator := RandomNumberGenerator.new() # create a new random number generator
-			var which_ore := random_number_generator.rand_weighted([0.5, 0.3, 0.1, 0.1]) + 2 # generate a random number between 0 and 1, weighted towards 0.5
-			set_cell_item(block_position, which_ore) # set the block to ore
+	if is_air:
+		set_cell_item(block_position, 0)
+	else:
+		if randi() % 4 == 0: # 25% chance to spawn ore
+			var rng := RandomNumberGenerator.new()
+			rng.randomize()
+			set_cell_item(block_position, rng.rand_weighted([0.5, 0.3, 0.1, 0.1]) + 2)
 		else:
-			set_cell_item(block_position, 1) # set the block to default
-
-	pass
+			set_cell_item(block_position, 1)
