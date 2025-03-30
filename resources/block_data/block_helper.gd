@@ -5,6 +5,7 @@ class_name BlockHelper
 @export var block_resources: Array[BaseBlockResource]
 
 
+# The following 5 functions help to get the block resource variables by name
 func get_block_rarity_by_name(inputted_block_name: String) -> BaseBlockResource.BlockRarities:
 	for block_resource in block_resources:
 		if block_resource.block_name.to_lower() == inputted_block_name:
@@ -51,6 +52,7 @@ func get_block_index_by_name(inputted_block_name: String) -> int:
 	return -1
 
 
+# The following 5 functions help to get the block resource variables by index
 func get_block_rarity_by_index(index: int) -> BaseBlockResource.BlockRarities:
 	if index >= 0 and index < block_resources.size():
 		return block_resources[index].rarity
@@ -88,5 +90,4 @@ func get_block_name_by_index(index: int) -> String:
 
 
 func _ready():
-	print(get_block_rarity_by_name("air"))
 	pass

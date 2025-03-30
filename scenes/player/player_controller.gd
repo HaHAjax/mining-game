@@ -44,8 +44,8 @@ var lantern_enabled := false
 @export var lantern_color := Color(1, 1, 1)
 
 
-# May be used in the future, here just in case
 func _ready():
+	# Setting the stats to each light source on load, so it can be more easily tweaked in the editor (or in scripts)
 	set_light_stats()
 
 

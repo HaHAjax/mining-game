@@ -19,8 +19,6 @@ func _ready() -> void:
 	# Generating the starting blocks
 	generate_initial_blocks()
 
-	pass
-
 
 func generate_initial_blocks():
 	# Calculating these once for performance
