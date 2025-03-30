@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtcg104764pwd"]
+[gd_scene load_steps=9 format=3 uid="uid://dtcg104764pwd"]
 
 [ext_resource type="BoxMesh" uid="uid://bu6wrgsx1mveg" path="res://resources/block_resources/mesh_library_data/defaults/air.tres" id="1_ovoge"]
 [ext_resource type="BoxMesh" uid="uid://ln7qff5he7em" path="res://resources/block_resources/mesh_library_data/defaults/stone.tres" id="2_66fhg"]
+[ext_resource type="Shape3D" uid="uid://dysnpfgth8dg2" path="res://resources/block_resources/mesh_library_data/default_collision_shape.tres" id="3_66fhg"]
 [ext_resource type="BoxMesh" uid="uid://dftkpwub7cmx" path="res://resources/block_resources/mesh_library_data/ores/testing_common.tres" id="3_vkgqy"]
 [ext_resource type="BoxMesh" uid="uid://cqsk6deqsnglt" path="res://resources/block_resources/mesh_library_data/ores/testing_uncommon.tres" id="4_66fhg"]
 [ext_resource type="BoxMesh" uid="uid://c1wen7s7bvuwk" path="res://resources/block_resources/mesh_library_data/ores/testing_rare.tres" id="5_ovoge"]
@@ -27,7 +28,7 @@ mesh = ExtResource("2_66fhg")
 [node name="StaticBody3D" type="StaticBody3D" parent="Stone"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stone/StaticBody3D"]
-shape = SubResource("BoxShape3D_5d2dh")
+shape = ExtResource("3_66fhg")
 
 [node name="CommonOre" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)

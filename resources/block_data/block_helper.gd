@@ -12,6 +12,8 @@ class_name BlockHelper
 var default_block_resource_folder_path: String = "res://resources/block_resources/block_data/defaults/"
 var ore_block_resource_folder_path: String = "res://resources/block_resources/block_data/ores/"
 
+var default_collision_shape := load("uid://dysnpfgth8dg2")
+
 
 func setup_everything():
 	# Setup the mesh library
@@ -36,7 +38,6 @@ func set_block_resources():
 			push_error("Block resource not found: " + item_name)
 			continue
 		block_resources.append(block_resource)
-		notify_property_list_changed()
 	
 	# Loading the ores after
 	for item_index in get_item_list().size() - 2:
@@ -46,7 +47,6 @@ func set_block_resources():
 			push_error("Block resource not found: " + item_name)
 			continue
 		block_resources.append(block_resource)
-		notify_property_list_changed()
 
 
 func setup_mesh_library():
@@ -67,6 +67,10 @@ func setup_mesh_library():
 		var block_resource := load(default_block_resource_folder_path + file_name) as BaseBlockResource  # Remove the .tres if it's already in file_name
 		set_item_mesh(file_index, block_resource.block_mesh)
 		set_item_name(file_index, block_resource.block_name.to_pascal_case())
+		if file_name == "air.tres":
+			set_item_shapes(file_index, [])
+		else:
+			set_item_shapes(file_index, [default_collision_shape])
 	
 	var ore_block_directory := DirAccess.open(ore_block_resource_folder_path)
 	ore_block_directory.list_dir_begin()
@@ -81,6 +85,8 @@ func setup_mesh_library():
 		var block_resource := load(ore_block_resource_folder_path + file_name) as BaseBlockResource  # Remove the .tres if it's already in file_name
 		set_item_mesh(file_index, block_resource.block_mesh)
 		set_item_name(file_index, block_resource.block_name.to_pascal_case())
+		set_item_shapes(file_index, [default_collision_shape])
+
 	
 	pass
 
