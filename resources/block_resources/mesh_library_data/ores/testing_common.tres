@@ -1,0 +1,11 @@
+[gd_resource type="BoxMesh" load_steps=3 format=3 uid="uid://dftkpwub7cmx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ryavd"]
+load_path = "res://.godot/imported/texture_10.png-3f72abba172432380bd86a508e997833.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awqca"]
+albedo_texture = SubResource("CompressedTexture2D_ryavd")
+uv1_triplanar = true
+
+[resource]
+material = SubResource("StandardMaterial3D_awqca")

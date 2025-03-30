@@ -2,7 +2,78 @@
 extends MeshLibrary
 class_name BlockHelper
 
+## Sets the block resources based on the MeshLibrary
+@export_tool_button("Set Block Resources", "Callable") var set_block_resources_button := set_block_resources
+
+@export_tool_button("Setup MeshLibrary \n from folder", "Callable") var setup_mesh_library_button := setup_mesh_library
+
+## The resources for each block.
+## Can be set manually, or automatically by pressing the button above.
 @export var block_resources: Array[BaseBlockResource]
+
+var default_block_resource_folder_path: String = "res://resources/block_resources/block_data/defaults/"
+var ore_block_resource_folder_path: String = "res://resources/block_resources/block_data/ores/"
+
+
+func set_block_resources():
+	# Clear the block resources array
+	block_resources.clear()
+
+	# Loading the defaults first
+	for item_index in 2:
+		var item_name := get_item_name(item_index).to_snake_case()
+		var block_resource := load(default_block_resource_folder_path + item_name + ".tres") as BaseBlockResource
+		if block_resource == null:
+			push_error("Block resource not found: " + item_name)
+			continue
+		block_resources.append(block_resource)
+		notify_property_list_changed()
+	
+	# Loading the ores after
+	for item_index in get_item_list().size() - 2:
+		var item_name := get_item_name(item_index + 2).to_snake_case()
+		var block_resource := load(ore_block_resource_folder_path + item_name + ".tres") as BaseBlockResource
+		if block_resource == null:
+			push_error("Block resource not found: " + item_name)
+			continue
+		block_resources.append(block_resource)
+		notify_property_list_changed()
+
+
+func setup_mesh_library():
+	# Clear the mesh library
+	clear()
+
+	var default_block_directory := DirAccess.open(default_block_resource_folder_path)
+	default_block_directory.list_dir_begin()
+	var default_block_file_names := default_block_directory.get_files()
+	default_block_directory.list_dir_end()
+
+	var amount_of_default_blocks := 0
+
+	for file_name in default_block_file_names:
+		var file_index = default_block_file_names.find(file_name)
+		amount_of_default_blocks += 1
+		create_item(file_index)
+		var block_resource := load(default_block_resource_folder_path + file_name) as BaseBlockResource  # Remove the .tres if it's already in file_name
+		set_item_mesh(file_index, block_resource.block_mesh)
+		set_item_name(file_index, block_resource.block_name.to_pascal_case())
+	
+	var ore_block_directory := DirAccess.open(ore_block_resource_folder_path)
+	ore_block_directory.list_dir_begin()
+	var ore_block_file_names := Array(ore_block_directory.get_files())
+	ore_block_directory.list_dir_end()
+
+	ore_block_file_names.sort_custom(sort_by_rarity)
+
+	for file_name in ore_block_file_names:
+		var file_index = ore_block_file_names.find(file_name) + amount_of_default_blocks
+		create_item(file_index)
+		var block_resource := load(ore_block_resource_folder_path + file_name) as BaseBlockResource  # Remove the .tres if it's already in file_name
+		set_item_mesh(file_index, block_resource.block_mesh)
+		set_item_name(file_index, block_resource.block_name.to_pascal_case())
+	
+	pass
 
 
 # The following 5 functions help to get the block resource variables by name
@@ -91,3 +162,40 @@ func get_block_name_by_index(index: int) -> String:
 
 func _ready():
 	pass
+
+
+func sort_by_rarity(a: String, b: String) -> bool:
+	var a_file_path := ore_block_resource_folder_path + a
+	var b_file_path := ore_block_resource_folder_path + b
+
+	var a_block_resource := load(a_file_path) as BaseBlockResource
+	var b_block_resource := load(b_file_path) as BaseBlockResource
+
+	# Sort by rarity
+	if a_block_resource.rarity < b_block_resource.rarity:
+		return true
+	elif a_block_resource.rarity > b_block_resource.rarity:
+		return false
+	else:
+		# If the rarities are the same, sort by name
+		if a_block_resource.block_name > b_block_resource.block_name:
+			return true
+		elif a_block_resource.block_name < b_block_resource.block_name:
+			return false
+	return false
+
+
+func get_file_count(path: String) -> int:
+	var dir := DirAccess.open(path)
+	dir.list_dir_begin()
+
+	var file_count := 0
+	while true:
+		var file := dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			file_count += 1
+
+	dir.list_dir_end()
+	return file_count

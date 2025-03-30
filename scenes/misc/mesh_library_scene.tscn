@@ -1,70 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://dtcg104764pwd"]
+[gd_scene load_steps=8 format=3 uid="uid://dtcg104764pwd"]
 
-[ext_resource type="Texture2D" uid="uid://6twgl5e50xvh" path="res://addons/kenney_prototype_textures/green/texture_10.png" id="1_ikoww"]
-[ext_resource type="Texture2D" uid="uid://bquddl0c5ix8k" path="res://assets/textures/default_blocks/stone-2_normal2.png" id="1_n4hij"]
-[ext_resource type="Texture2D" uid="uid://c24tvuqjgpk4p" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="2_gtn7n"]
-[ext_resource type="Texture2D" uid="uid://diup3sy0i8kc" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="3_n4hij"]
-[ext_resource type="Texture2D" uid="uid://dxa14eygndovy" path="res://addons/kenney_prototype_textures/purple/texture_10.png" id="4_ovoge"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5d2dh"]
-transparency = 1
-albedo_color = Color(0, 0, 0, 0)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hnw1i"]
-material = SubResource("StandardMaterial3D_5d2dh")
+[ext_resource type="BoxMesh" uid="uid://bu6wrgsx1mveg" path="res://resources/block_resources/mesh_library_data/defaults/air.tres" id="1_ovoge"]
+[ext_resource type="BoxMesh" uid="uid://ln7qff5he7em" path="res://resources/block_resources/mesh_library_data/defaults/stone.tres" id="2_66fhg"]
+[ext_resource type="BoxMesh" uid="uid://dftkpwub7cmx" path="res://resources/block_resources/mesh_library_data/ores/testing_common.tres" id="3_vkgqy"]
+[ext_resource type="BoxMesh" uid="uid://cqsk6deqsnglt" path="res://resources/block_resources/mesh_library_data/ores/testing_uncommon.tres" id="4_66fhg"]
+[ext_resource type="BoxMesh" uid="uid://c1wen7s7bvuwk" path="res://resources/block_resources/mesh_library_data/ores/testing_rare.tres" id="5_ovoge"]
+[ext_resource type="BoxMesh" uid="uid://x38fkysnf61g" path="res://resources/block_resources/mesh_library_data/ores/testing_epic.tres" id="6_66fhg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d2dh"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5d2dh"]
-load_path = "res://.godot/imported/stone-2.png-605445cb8e4475d3a84f59c33f604176.ctex"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtn7n"]
-albedo_color = Color(0.541972, 0.56576, 0.61732, 1)
-albedo_texture = SubResource("CompressedTexture2D_5d2dh")
-normal_enabled = true
-normal_texture = ExtResource("1_n4hij")
-uv1_triplanar = true
-uv1_world_triplanar = true
-texture_filter = 2
-
-[sub_resource type="BoxMesh" id="BoxMesh_ikoww"]
-material = SubResource("StandardMaterial3D_gtn7n")
-subdivide_width = 32
-subdivide_height = 32
-subdivide_depth = 32
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4hij"]
-albedo_texture = ExtResource("1_ikoww")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_ovoge"]
-material = SubResource("StandardMaterial3D_n4hij")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66fhg"]
-albedo_texture = ExtResource("2_gtn7n")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_vkgqy"]
-material = SubResource("StandardMaterial3D_66fhg")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sp0o"]
-albedo_texture = ExtResource("3_n4hij")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_v58wn"]
-material = SubResource("StandardMaterial3D_0sp0o")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uduo6"]
-albedo_texture = ExtResource("4_ovoge")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_816en"]
-material = SubResource("StandardMaterial3D_uduo6")
 
 [node name="MeshLibraryRoot" type="Node3D"]
 
 [node name="Air" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_hnw1i")
+mesh = ExtResource("1_ovoge")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Air"]
 
@@ -74,7 +22,7 @@ disabled = true
 
 [node name="Stone" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
-mesh = SubResource("BoxMesh_ikoww")
+mesh = ExtResource("2_66fhg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stone"]
 
@@ -83,7 +31,7 @@ shape = SubResource("BoxShape3D_5d2dh")
 
 [node name="CommonOre" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-mesh = SubResource("BoxMesh_ovoge")
+mesh = ExtResource("3_vkgqy")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CommonOre"]
 
@@ -92,7 +40,7 @@ shape = SubResource("BoxShape3D_5d2dh")
 
 [node name="UncommonOre" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
-mesh = SubResource("BoxMesh_vkgqy")
+mesh = ExtResource("4_66fhg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="UncommonOre"]
 
@@ -101,7 +49,7 @@ shape = SubResource("BoxShape3D_5d2dh")
 
 [node name="RareOre" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-mesh = SubResource("BoxMesh_v58wn")
+mesh = ExtResource("5_ovoge")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RareOre"]
 
@@ -110,7 +58,7 @@ shape = SubResource("BoxShape3D_5d2dh")
 
 [node name="EpicOre" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
-mesh = SubResource("BoxMesh_816en")
+mesh = ExtResource("6_66fhg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="EpicOre"]
 

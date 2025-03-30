@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=3 format=3 uid="uid://cnnc2r5rc2rjb"]
+
+[ext_resource type="BoxMesh" uid="uid://x38fkysnf61g" path="res://resources/block_resources/mesh_library_data/ores/testing_epic.tres" id="1_omd45"]
+[ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="2_d6oll"]
+
+[resource]
+script = ExtResource("2_d6oll")
+block_name = "TestingEpic"
+block_type = 2
+rarity = 3
+spawn_depth = 0
+chance_to_spawn = 0.1
+block_mesh = ExtResource("1_omd45")
+metadata/_custom_type_script = "uid://h82db102rlur"
