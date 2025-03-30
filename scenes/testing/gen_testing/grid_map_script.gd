@@ -7,7 +7,7 @@ extends GridMap
 # The offset that the blocks will spawn from
 @onready var origin_offset := Vector3i(0, 2, 0)
 
-# The surrounding blocks, used for generating new blocks (set once so it's not recalculated every time a block is destroyed)
+# The surrounding blocks, used for generating new blocks (set once so it's not re-set every time a block is destroyed)
 @onready var surrounding_blocks: Array[Vector3i] = [
 		Vector3i(1, 0, 0), Vector3i(-1, 0, 0),
 		Vector3i(0, 1, 0), Vector3i(0, -1, 0),
@@ -16,6 +16,13 @@ extends GridMap
 
 
 func _ready() -> void:
+	# Generating the starting blocks
+	generate_initial_blocks()
+
+	pass
+
+
+func generate_initial_blocks():
 	# Calculating these once for performance
 	var halved_blocks_amount_width := Vector3i(ceil(blocks_amount_width.x / 2.0), ceil(blocks_amount_width.y / 2.0), ceil(blocks_amount_width.z / 2.0))
 	var halved_empty_space := Vector3i(ceil(empty_space.x / 2.0), ceil(empty_space.y / 2.0), ceil(empty_space.z / 2.0))

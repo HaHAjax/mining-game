@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=2 format=3 uid="uid://dhulexiov7gye"]
+
+[ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="1_jgaoe"]
+
+[resource]
+script = ExtResource("1_jgaoe")
+block_name = "Stone"
+block_type = 1
+rarity = -1
+spawn_depth = 0
+metadata/_custom_type_script = "uid://h82db102rlur"

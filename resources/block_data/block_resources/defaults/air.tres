@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=2 format=3 uid="uid://c6f0xrxysihy5"]
+
+[ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="1_g8qma"]
+
+[resource]
+script = ExtResource("1_g8qma")
+block_name = "Air"
+block_type = 0
+rarity = -1
+spawn_depth = -1
+metadata/_custom_type_script = "uid://h82db102rlur"

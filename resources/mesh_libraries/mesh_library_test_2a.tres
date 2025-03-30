@@ -1,11 +1,19 @@
-[gd_resource type="MeshLibrary" load_steps=32 format=3 uid="uid://cxkcq2td3xrso"]
+[gd_resource type="MeshLibrary" script_class="BlockLibrary" load_steps=40 format=3 uid="uid://cxkcq2td3xrso"]
 
 [ext_resource type="Texture2D" uid="uid://ckfd1xsb4mxau" path="res://assets/textures/default_blocks/stone-remake2.png" id="1_ehqyk"]
 [ext_resource type="Texture2D" uid="uid://6twgl5e50xvh" path="res://addons/kenney_prototype_textures/green/texture_10.png" id="1_ivfcn"]
+[ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="1_rbdxv"]
 [ext_resource type="Texture2D" uid="uid://c24tvuqjgpk4p" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="2_2f6x6"]
 [ext_resource type="Texture2D" uid="uid://clvf0k657u5ve" path="res://assets/textures/default_blocks/stone-remake2-normal.png" id="2_4f4ri"]
+[ext_resource type="Resource" uid="uid://c6f0xrxysihy5" path="res://resources/block_data/block_resources/defaults/air.tres" id="2_tsayd"]
 [ext_resource type="Texture2D" uid="uid://diup3sy0i8kc" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="3_ehqyk"]
+[ext_resource type="Resource" uid="uid://dhulexiov7gye" path="res://resources/block_data/block_resources/defaults/stone.tres" id="3_i5s8o"]
 [ext_resource type="Texture2D" uid="uid://dxa14eygndovy" path="res://addons/kenney_prototype_textures/purple/texture_10.png" id="4_4f4ri"]
+[ext_resource type="Resource" uid="uid://dswffhq1jhlmp" path="res://resources/block_data/block_resources/ores/testing/testing_common.tres" id="4_byjyh"]
+[ext_resource type="Resource" uid="uid://dn2unky0ircn4" path="res://resources/block_data/block_resources/ores/testing/testing_uncommon.tres" id="5_33h6j"]
+[ext_resource type="Resource" uid="uid://doby8ypt4r52o" path="res://resources/block_data/block_resources/ores/testing/testing_rare.tres" id="6_w5low"]
+[ext_resource type="Script" uid="uid://nefw8w1ptcu5" path="res://resources/block_data/block_helper.gd" id="7_4f4ri"]
+[ext_resource type="Resource" uid="uid://cnnc2r5rc2rjb" path="res://resources/block_data/block_resources/ores/testing/testing_epic.tres" id="7_n2sfa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5d2dh"]
 transparency = 1
@@ -181,3 +189,5 @@ item/5/shapes = [SubResource("BoxShape3D_5d2dh"), Transform3D(1, 0, 0, 0, 1, 0, 
 item/5/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/5/navigation_layers = 1
 item/5/preview = SubResource("ImageTexture_8ymck")
+script = ExtResource("7_4f4ri")
+block_resources = Array[ExtResource("1_rbdxv")]([ExtResource("2_tsayd"), ExtResource("3_i5s8o"), ExtResource("4_byjyh"), ExtResource("5_33h6j"), ExtResource("6_w5low"), ExtResource("7_n2sfa")])
