@@ -2,10 +2,8 @@
 extends MeshLibrary
 class_name BlockHelper
 
-## Sets the block resources based on the MeshLibrary
-@export_tool_button("Set Block Resources", "Callable") var set_block_resources_button := set_block_resources
-
-@export_tool_button("Setup MeshLibrary \n from folder", "Callable") var setup_mesh_library_button := setup_mesh_library
+## Automagically sets everything up :>
+@export_tool_button("Setup Everything", "Callable") var setup_everything_button := setup_everything
 
 ## The resources for each block.
 ## Can be set manually, or automatically by pressing the button above.
@@ -13,6 +11,17 @@ class_name BlockHelper
 
 var default_block_resource_folder_path: String = "res://resources/block_resources/block_data/defaults/"
 var ore_block_resource_folder_path: String = "res://resources/block_resources/block_data/ores/"
+
+
+func setup_everything():
+	# Setup the mesh library
+	await setup_mesh_library()
+
+	# Set the block resources
+	await set_block_resources()
+
+	# Make it update in the editor
+	notify_property_list_changed()
 
 
 func set_block_resources():
