@@ -9,11 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://diup3sy0i8kc" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="3_ehqyk"]
 [ext_resource type="Resource" uid="uid://dhulexiov7gye" path="res://resources/block_data/block_resources/defaults/stone.tres" id="3_i5s8o"]
 [ext_resource type="Texture2D" uid="uid://dxa14eygndovy" path="res://addons/kenney_prototype_textures/purple/texture_10.png" id="4_4f4ri"]
-[ext_resource type="Resource" uid="uid://dswffhq1jhlmp" path="res://resources/block_data/block_resources/ores/testing/testing_common.tres" id="4_byjyh"]
-[ext_resource type="Resource" uid="uid://dn2unky0ircn4" path="res://resources/block_data/block_resources/ores/testing/testing_uncommon.tres" id="5_33h6j"]
-[ext_resource type="Resource" uid="uid://doby8ypt4r52o" path="res://resources/block_data/block_resources/ores/testing/testing_rare.tres" id="6_w5low"]
+[ext_resource type="Resource" uid="uid://dswffhq1jhlmp" path="res://resources/block_data/block_resources/ores/testing_common.tres" id="4_byjyh"]
+[ext_resource type="Resource" uid="uid://dn2unky0ircn4" path="res://resources/block_data/block_resources/ores/testing_uncommon.tres" id="5_33h6j"]
+[ext_resource type="Resource" uid="uid://doby8ypt4r52o" path="res://resources/block_data/block_resources/ores/testing_rare.tres" id="6_w5low"]
 [ext_resource type="Script" uid="uid://nefw8w1ptcu5" path="res://resources/block_data/block_helper.gd" id="7_4f4ri"]
-[ext_resource type="Resource" uid="uid://cnnc2r5rc2rjb" path="res://resources/block_data/block_resources/ores/testing/testing_epic.tres" id="7_n2sfa"]
+[ext_resource type="Resource" uid="uid://cnnc2r5rc2rjb" path="res://resources/block_data/block_resources/ores/testing_epic.tres" id="7_n2sfa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5d2dh"]
 transparency = 1
