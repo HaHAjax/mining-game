@@ -159,5 +159,4 @@ func update_mining() -> void:
 			raycast_node.get_collider().destroy_block(block_position)
 
 			# Generating new blocks around the destroyed block
-			var modified_block_position: Vector3i = raycast_node.get_collider().local_to_map(block_position) # Getting the destroyed block's position on the GridMap
-			raycast_node.get_collider().generate_new_blocks(modified_block_position) # Calling the function to actually generate the blocks
+			raycast_node.get_collider().generate_new_blocks(raycast_node.get_collider().local_to_map(block_position))
