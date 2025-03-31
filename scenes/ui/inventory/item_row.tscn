@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm3157vm0svxp"]
+
+[ext_resource type="Script" uid="uid://cu7a7rj53epir" path="res://scenes/ui/inventory/item_row_script.gd" id="1_75a1t"]
+[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="1_a3meb"]
+
+[node name="ItemRow" type="HBoxContainer" node_paths=PackedStringArray("item_icon", "item_name", "item_amount")]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_75a1t")
+item_icon = NodePath("Icon")
+item_name = NodePath("ItemName")
+item_amount = NodePath("Quantity")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture = ExtResource("1_a3meb")
+stretch_mode = 2
+
+[node name="ItemName" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item Name"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Quantity" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"

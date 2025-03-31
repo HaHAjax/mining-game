@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" script_class="BlockHelper" load_steps=20 format=3 uid="uid://cxkcq2td3xrso"]
+[gd_resource type="MeshLibrary" script_class="BlockHelper" load_steps=18 format=3 uid="uid://cxkcq2td3xrso"]
 
 [ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="1_rbdxv"]
 [ext_resource type="Resource" uid="uid://c6f0xrxysihy5" path="res://resources/block_resources/block_data/defaults/air.tres" id="2_158qm"]
@@ -10,20 +10,13 @@
 [ext_resource type="Resource" uid="uid://cnnc2r5rc2rjb" path="res://resources/block_resources/block_data/ores/testing_epic.tres" id="7_8hsps"]
 [ext_resource type="BoxMesh" uid="uid://bu6wrgsx1mveg" path="res://resources/block_resources/mesh_library_data/defaults/air.tres" id="8_rbdxv"]
 [ext_resource type="BoxMesh" uid="uid://ln7qff5he7em" path="res://resources/block_resources/mesh_library_data/defaults/stone.tres" id="9_tsayd"]
+[ext_resource type="Texture2D" uid="uid://ckfd1xsb4mxau" path="res://assets/textures/default_blocks/stone-remake2.png" id="10_byjyh"]
 [ext_resource type="BoxMesh" uid="uid://dftkpwub7cmx" path="res://resources/block_resources/mesh_library_data/ores/testing_common.tres" id="10_i5s8o"]
+[ext_resource type="Shape3D" uid="uid://dysnpfgth8dg2" path="res://resources/block_resources/mesh_library_data/default_collision_shape.tres" id="11_33h6j"]
 [ext_resource type="BoxMesh" uid="uid://cqsk6deqsnglt" path="res://resources/block_resources/mesh_library_data/ores/testing_uncommon.tres" id="11_byjyh"]
 [ext_resource type="BoxMesh" uid="uid://c1wen7s7bvuwk" path="res://resources/block_resources/mesh_library_data/ores/testing_rare.tres" id="12_33h6j"]
+[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="12_w5low"]
 [ext_resource type="BoxMesh" uid="uid://x38fkysnf61g" path="res://resources/block_resources/mesh_library_data/ores/testing_epic.tres" id="13_w5low"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_rbdxv"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_tsayd"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_i5s8o"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_byjyh"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_33h6j"]
 
 [resource]
 item/0/name = "Air"
@@ -37,36 +30,41 @@ item/1/name = "Stone"
 item/1/mesh = ExtResource("9_tsayd")
 item/1/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/1/mesh_cast_shadow = 1
-item/1/shapes = [SubResource("BoxShape3D_rbdxv"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/1/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/1/navigation_layers = 1
+item/1/preview = ExtResource("10_byjyh")
 item/2/name = "TestingCommon"
 item/2/mesh = ExtResource("10_i5s8o")
 item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/2/mesh_cast_shadow = 1
-item/2/shapes = [SubResource("BoxShape3D_tsayd"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/2/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/2/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/2/navigation_layers = 1
+item/2/preview = ExtResource("12_w5low")
 item/3/name = "TestingUncommon"
 item/3/mesh = ExtResource("11_byjyh")
 item/3/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/3/mesh_cast_shadow = 1
-item/3/shapes = [SubResource("BoxShape3D_i5s8o"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/3/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/3/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/3/navigation_layers = 1
+item/3/preview = ExtResource("12_w5low")
 item/4/name = "TestingRare"
 item/4/mesh = ExtResource("12_33h6j")
 item/4/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/4/mesh_cast_shadow = 1
-item/4/shapes = [SubResource("BoxShape3D_byjyh"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/4/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/4/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/4/navigation_layers = 1
+item/4/preview = ExtResource("12_w5low")
 item/5/name = "TestingEpic"
 item/5/mesh = ExtResource("13_w5low")
 item/5/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/5/mesh_cast_shadow = 1
-item/5/shapes = [SubResource("BoxShape3D_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/5/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/5/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/5/navigation_layers = 1
+item/5/preview = ExtResource("12_w5low")
 script = ExtResource("7_4f4ri")
 block_resources = Array[ExtResource("1_rbdxv")]([ExtResource("2_158qm"), ExtResource("3_t6y6b"), ExtResource("4_mf2rf"), ExtResource("5_1w7yt"), ExtResource("6_q3pr0"), ExtResource("7_8hsps")])

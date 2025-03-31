@@ -1,5 +1,7 @@
 extends GridMap
 
+@onready var block_helper := load("res://resources/block_data/block_helper.gd")
+
 # The amount of blocks to spawn on each side
 @onready var blocks_amount_width := Vector3i(1, 1, 1)
 # The amount of empty space to spawn in the middle
@@ -48,6 +50,9 @@ func destroy_block(world_coordinate: Vector3) -> void:
 
 	# For debugging
 	# print("map_coordinate: ", map_coordinate)
+
+	# Tell the inventory manager to add the block to the inventory
+	GameLoop.inventory_manager.add_item(GameLoop.block_helper.get_block_name_by_index(get_cell_item(map_coordinate)))
 
 	# Destroying the block
 	generate_a_block(map_coordinate, true)

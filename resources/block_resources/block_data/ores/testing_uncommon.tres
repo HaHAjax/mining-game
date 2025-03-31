@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=3 format=3 uid="uid://dn2unky0ircn4"]
+[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=4 format=3 uid="uid://dn2unky0ircn4"]
 
 [ext_resource type="BoxMesh" uid="uid://cqsk6deqsnglt" path="res://resources/block_resources/mesh_library_data/ores/testing_uncommon.tres" id="1_d6qkl"]
 [ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="2_d6q1t"]
+[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="2_gw3sa"]
 
 [resource]
 script = ExtResource("2_d6q1t")
@@ -11,4 +12,5 @@ rarity = 1
 spawn_depth = 0
 chance_to_spawn = 0.3
 block_mesh = ExtResource("1_d6qkl")
+item_preview = ExtResource("2_gw3sa")
 metadata/_custom_type_script = "uid://h82db102rlur"

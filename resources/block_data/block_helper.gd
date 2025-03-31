@@ -2,6 +2,16 @@
 extends MeshLibrary
 class_name BlockHelper
 
+var instance: BlockHelper
+
+func _init():
+	if instance == null:
+		instance = self
+
+
+# TODO:
+# - Put comments here and there
+
 ## Automagically sets everything up :>
 @export_tool_button("Setup Everything", "Callable") var setup_everything_button := setup_everything
 
@@ -71,6 +81,7 @@ func setup_mesh_library():
 			set_item_shapes(file_index, [])
 		else:
 			set_item_shapes(file_index, [default_collision_shape])
+			set_item_preview(file_index, block_resource.item_preview)
 	
 	var ore_block_directory := DirAccess.open(ore_block_resource_folder_path)
 	ore_block_directory.list_dir_begin()
@@ -86,9 +97,7 @@ func setup_mesh_library():
 		set_item_mesh(file_index, block_resource.block_mesh)
 		set_item_name(file_index, block_resource.block_name.to_pascal_case())
 		set_item_shapes(file_index, [default_collision_shape])
-
-	
-	pass
+		set_item_preview(file_index, block_resource.item_preview)
 
 
 # The following 5 functions help to get the block resource variables by name

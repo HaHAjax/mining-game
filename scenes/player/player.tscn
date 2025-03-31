@@ -16,9 +16,10 @@ material = SubResource("StandardMaterial3D_dovo2")
 radius = 0.45
 height = 1.95
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hud")]
 script = ExtResource("1_gmlin")
 jump_velocity = 5.0
+hud = NodePath("HUD/Control")
 lantern_attenuation = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -41,9 +42,9 @@ spot_range = 25.0
 spot_attenuation = 1.5
 spot_angle = 20.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,7 +52,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="TextureRect" type="TextureRect" parent="HUD/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

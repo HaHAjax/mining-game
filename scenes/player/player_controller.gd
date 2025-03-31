@@ -28,6 +28,7 @@ var attempting_jump := func() -> bool: return input_jump
 @onready var raycast_node := $Camera3D/RayCast3D as RayCast3D
 @onready var flashlight_light: SpotLight3D = $Camera3D/FlashlightLight
 @onready var lantern_light: OmniLight3D = $LanternLight
+@export var hud: Control
 
 # The lights' variables
 var flashlight_enabled := false
@@ -75,8 +76,6 @@ func _physics_process(delta: float) -> void:
 
 	# Updating mining operation
 	update_mining()
-
-	pass
 
 
 func update_input() -> void:

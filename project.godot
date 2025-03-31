@@ -14,6 +14,10 @@ config/name="Mining Game"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameLoop="*res://autoload/game_loop.gd"
+
 [input]
 
 move_left={

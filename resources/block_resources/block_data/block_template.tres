@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=5 format=3 uid="uid://bekuemt4l3gsv"]
+
+[ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="1_7ddfr"]
+[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="1_sdvbi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dv177"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lu1hc"]
+material = SubResource("StandardMaterial3D_dv177")
+
+[resource]
+script = ExtResource("1_7ddfr")
+block_name = ""
+block_type = 0
+rarity = 0
+spawn_depth = 0
+chance_to_spawn = 0.5
+block_mesh = SubResource("BoxMesh_lu1hc")
+item_preview = ExtResource("1_sdvbi")
+metadata/_custom_type_script = "uid://h82db102rlur"

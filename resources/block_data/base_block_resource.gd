@@ -37,3 +37,4 @@ enum BlockSpawnDepths {
 
 @export_category("MeshLibrary Data")
 @export var block_mesh: Mesh
+@export var item_preview: Texture2D
