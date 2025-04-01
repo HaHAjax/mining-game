@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsed1w0exrxkf"]
+[gd_scene load_steps=8 format=3 uid="uid://dsed1w0exrxkf"]
 
 [ext_resource type="Texture2D" uid="uid://c24tvuqjgpk4p" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://bjd7i5myioxq2" path="res://scenes/player/player_controller.gd" id="1_gmlin"]
 [ext_resource type="Script" uid="uid://bsd8jia12vvtr" path="res://scenes/player/camera_controller.gd" id="3_lvxji"]
 [ext_resource type="Texture2D" uid="uid://bpy4fnc2fksi5" path="res://assets/ui/hud/temp_crosshair.png" id="4_lvxji"]
-[ext_resource type="Script" uid="uid://cf3mw8fxi6v4c" path="res://scenes/ui/inventory/inventory_ui.gd" id="5_p47bc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dovo2"]
 albedo_texture = ExtResource("1_8afob")
@@ -31,11 +30,12 @@ shape = SubResource("CapsuleShape3D_spyh3")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+far = 50.0
 script = ExtResource("3_lvxji")
 player = NodePath("..")
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -25)
+target_position = Vector3(0, 0, -10)
 
 [node name="FlashlightLight" type="SpotLight3D" parent="Camera3D"]
 unique_name_in_owner = true
@@ -68,37 +68,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_lvxji")
 stretch_mode = 2
-
-[node name="InventoryUI" type="Control" parent="HUD/Control"]
-layout_mode = 1
-anchor_top = 0.334877
-anchor_right = 0.283854
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_p47bc")
-metadata/_edit_use_anchors_ = true
-
-[node name="VScrollBar" type="VScrollBar" parent="HUD/Control/InventoryUI"]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -8.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 10
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/InventoryUI"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="LanternLight" type="OmniLight3D" parent="."]
 unique_name_in_owner = true

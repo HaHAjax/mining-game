@@ -73,8 +73,6 @@ func setup_mesh_library():
 	for file_name in default_block_file_names:
 		var file_index = default_block_file_names.find(file_name)
 		amount_of_default_blocks += 1
-		print("file index: ", file_index)
-		print("file name: ", file_name)
 		create_item(file_index)
 		var block_resource := load(default_block_resource_folder_path + file_name) as BaseBlockResource
 		set_item_mesh(file_index, block_resource.block_mesh)
