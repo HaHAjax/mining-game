@@ -90,7 +90,7 @@ func update_input() -> void:
 	input_jump = Input.is_action_just_pressed("jump")
 
 	# Mine
-	input_mine = Input.is_action_just_pressed("mine")
+	input_mine = Input.is_action_pressed("mine")
 
 	# Flashlight
 	input_toggle_flashlight = Input.is_action_just_pressed("toggle_flashlight")
