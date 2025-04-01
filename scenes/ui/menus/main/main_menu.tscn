@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqhm54adrkr3e"]
+
+[ext_resource type="MeshLibrary" uid="uid://cxkcq2td3xrso" path="res://resources/mesh_libraries/mesh_library_test_2a.tres" id="1_kik22"]
+[ext_resource type="Script" uid="uid://ccsh7huvgk18m" path="res://scenes/testing/gen_testing/grid_map_script.gd" id="2_bgesa"]
+[ext_resource type="PackedScene" uid="uid://oedn3djqbjqh" path="res://scenes/ui/menus/main/main_menu_ui.tscn" id="3_gtyvj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rnyy7"]
+sky_top_color = Color(0.220681, 0.423697, 0.832193, 1)
+sky_horizon_color = Color(0.420308, 0.684918, 0.88696, 1)
+ground_bottom_color = Color(0.0939905, 0.124491, 0.425618, 1)
+ground_horizon_color = Color(0.45486, 0.680904, 0.867725, 1)
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_rnyy7")
+
+[sub_resource type="Environment" id="Environment_xwcbq"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8kwte"]
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xwcbq")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_kik22")
+physics_material = SubResource("PhysicsMaterial_8kwte")
+cell_size = Vector3(1, 1, 1)
+script = ExtResource("2_bgesa")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenuUI" parent="CanvasLayer" instance=ExtResource("3_gtyvj")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.711229, -0.195908, 0.67511, -1.49012e-08, 0.960381, 0.278689, -0.70296, -0.198212, 0.683051, 0.843115, 1.64263, 0.869564)

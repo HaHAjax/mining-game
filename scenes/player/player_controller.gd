@@ -29,6 +29,7 @@ var attempting_jump := func() -> bool: return input_jump
 @onready var flashlight_light: SpotLight3D = $Camera3D/FlashlightLight
 @onready var lantern_light: OmniLight3D = $LanternLight
 @export var hud: Control
+@onready var player_data: PlayerData
 
 # The lights' variables
 var flashlight_enabled := false
@@ -46,6 +47,9 @@ var lantern_enabled := false
 
 
 func _ready():
+	if player_data == null:
+		player_data = PlayerData.new()
+
 	# Setting the stats to each light source on load, so it can be more easily tweaked in the editor (or in scripts)
 	set_light_stats()
 
@@ -86,7 +90,7 @@ func update_input() -> void:
 	input_jump = Input.is_action_just_pressed("jump")
 
 	# Mine
-	input_mine = Input.is_action_pressed("mine")
+	input_mine = Input.is_action_just_pressed("mine")
 
 	# Flashlight
 	input_toggle_flashlight = Input.is_action_just_pressed("toggle_flashlight")

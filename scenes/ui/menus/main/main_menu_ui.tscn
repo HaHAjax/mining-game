@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://oedn3djqbjqh"]
+
+[ext_resource type="Script" uid="uid://kkvnfpgambcg" path="res://scenes/ui/menus/main/main_menu_ui.gd" id="1_cdooe"]
+
+[node name="MainMenuUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cdooe")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.641975
+anchor_right = 1.0
+anchor_bottom = 0.921296
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "Quit"
+
+[connection signal="pressed" from="HBoxContainer/PlayButton" to="." method="_play_button_pressed"]

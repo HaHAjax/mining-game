@@ -38,3 +38,22 @@ func set_block_data() -> void:
 			"mesh": block_resource.block_mesh,
 			"item_preview": block_resource.item_preview
 		}
+
+
+func get_rarity_color(rarity: BaseBlockResource.BlockRarities) -> Color:
+	match rarity:
+		BaseBlockResource.BlockRarities.NONE:
+			return Color(1, 1, 1) # White
+		BaseBlockResource.BlockRarities.COMMON:
+			return Color(0.5, 0.5, 0.5) # Gray
+		BaseBlockResource.BlockRarities.UNCOMMON:
+			return Color(0, 1, 0) # Green
+		BaseBlockResource.BlockRarities.RARE:
+			return Color(0, 0, 1) # Blue
+		BaseBlockResource.BlockRarities.EPIC:
+			return Color(1, 0, 1) # Purple
+		BaseBlockResource.BlockRarities.LEGENDARY:
+			return Color(1, 0.5, 0) # Orange
+		BaseBlockResource.BlockRarities.MYTHIC:
+			return Color(1, 1, 0) # Yellow
+	return Color.WHITE

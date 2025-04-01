@@ -69,12 +69,14 @@ func setup_mesh_library():
 	default_block_directory.list_dir_end()
 
 	var amount_of_default_blocks := 0
-
+	
 	for file_name in default_block_file_names:
 		var file_index = default_block_file_names.find(file_name)
 		amount_of_default_blocks += 1
+		print("file index: ", file_index)
+		print("file name: ", file_name)
 		create_item(file_index)
-		var block_resource := load(default_block_resource_folder_path + file_name) as BaseBlockResource  # Remove the .tres if it's already in file_name
+		var block_resource := load(default_block_resource_folder_path + file_name) as BaseBlockResource
 		set_item_mesh(file_index, block_resource.block_mesh)
 		set_item_name(file_index, block_resource.block_name.to_pascal_case())
 		if file_name == "air.tres":
@@ -93,7 +95,7 @@ func setup_mesh_library():
 	for file_name in ore_block_file_names:
 		var file_index = ore_block_file_names.find(file_name) + amount_of_default_blocks
 		create_item(file_index)
-		var block_resource := load(ore_block_resource_folder_path + file_name) as BaseBlockResource  # Remove the .tres if it's already in file_name
+		var block_resource := load(ore_block_resource_folder_path + file_name) as BaseBlockResource
 		set_item_mesh(file_index, block_resource.block_mesh)
 		set_item_name(file_index, block_resource.block_name.to_pascal_case())
 		set_item_shapes(file_index, [default_collision_shape])

@@ -1,7 +1,11 @@
 extends RefCounted
 class_name InventoryManager
 
-var inventory := {}
+var _inventory := {}
+
+var inventory: Dictionary:
+	get:
+		return _inventory
 
 var inventory_ui: Control
 
@@ -27,15 +31,28 @@ func set_inventory_from_database() -> void:
 			}
 
 
+func load_inventory_visual() -> void:
+	if inventory_ui == null:
+		print("Inventory UI is null")
+		return
+	else:
+		for item in inventory.keys():
+			var item_data = inventory[item]
+			if item_data["amount"] == 0:
+				return
+			inventory_ui.add_item_visually(item_data)
+
+
 func add_item(item_name: String, amount: int = 1) -> void:
 	item_name = item_name.to_snake_case()
 	if item_name == "air":
 		return
 	if inventory.has(item_name):
-		if inventory[item_name]["amount"] == 0:
+		inventory[item_name]["amount"] += amount
+		if inventory[item_name]["amount"] == 1:
 			inventory_ui.add_item_visually(inventory[item_name])
 		else:
 			inventory_ui.update_item_visually(item_name, inventory[item_name]["amount"])
-		inventory[item_name]["amount"] += amount
-	else:
-		print("Item not found in inventory: ", item_name)
+	inventory_ui.get_child(1).get_children().sort_custom(inventory_ui.sort_visual_inventory_by_rarity)
+	# else:
+	# 	print("Item not found in inventory: ", item_name)

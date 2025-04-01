@@ -11,12 +11,18 @@ config_version=5
 [application]
 
 config/name="Mining Game"
+run/main_scene="uid://dqhm54adrkr3e"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameLoop="*res://autoload/game_loop.gd"
+AutoloadManager="*res://autoload/autoload_manager.gd"
+
+[editor]
+
+export/convert_text_resources_to_binary=false
 
 [input]
 
