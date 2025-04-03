@@ -33,6 +33,7 @@ func add_item_visually(item_data: Dictionary) -> void:
 	item_row_instance.set_item_name(item_data["name"])
 	item_row_instance.set_item_amount(item_data["amount"])
 	item_row_instance.set_item_rarity(item_data["rarity"])
+	item_row_instance.set_item_chance_to_spawn(item_data["chance_to_spawn"])
 	item_row_instance.name = item_data["name"].to_pascal_case()
 	items.append(item_row_instance)
 	items.sort_custom(sort_visual_inventory_by_rarity)
@@ -63,7 +64,7 @@ func sort_visual_inventory_by_rarity(a, b) -> bool:
 	elif a.item_rarity < b.item_rarity:
 		return false
 	else:
-		return a.name < b.name
+		return a.item_chance_to_spawn > b.item_chance_to_spawn
 
 	# for i in range(items.size()):
 	# 	for j in range(i + 1, items.size()):

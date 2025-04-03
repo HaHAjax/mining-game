@@ -1,4 +1,5 @@
 extends GridMap
+class_name GridMapScript
 
 @onready var block_helper := load("res://resources/block_data/block_helper.gd")
 
@@ -15,6 +16,8 @@ extends GridMap
 		Vector3i(0, 1, 0), Vector3i(0, -1, 0),
 		Vector3i(0, 0, 1), Vector3i(0, 0, -1)
 	]
+
+@onready var block_weights: Array[float]
 
 
 func _ready() -> void:
@@ -42,6 +45,12 @@ func generate_initial_blocks():
 					generate_a_block(Vector3i(x, y, z) + origin_offset, false)
 				else: # If the block is inside the empty space, set it to air
 					generate_a_block(Vector3i(x, y, z) + origin_offset, true)
+
+
+func set_weights(weights: Array[float]) -> void:
+	# Setting the weights for the blocks
+	for i in range(weights.size()):
+		block_weights.append(weights[i])
 
 
 func destroy_block(world_coordinate: Vector3) -> void:
@@ -77,6 +86,6 @@ func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
 		if randi() % 4 == 0: # 25% chance to spawn ore
 			var rng := RandomNumberGenerator.new()
 			rng.randomize()
-			set_cell_item(block_position, rng.rand_weighted([0.5, 0.3, 0.1, 0.1]) + 2)
+			set_cell_item(block_position, rng.rand_weighted([0.6, 0.5, 0.4, 0.3, 0.1, 0.1]) + 2)
 		else:
 			set_cell_item(block_position, 1)

@@ -22,13 +22,14 @@ func set_inventory_ui(input_inventory_ui: Control) -> void:
 func set_inventory_from_database() -> void:
 	var item_database = GameLoop.item_database
 	for item in item_database.block_data.keys():
-			inventory[item] = {
-				"uid": item_database.block_data[item]["uid"], # May remove in the future
-				"name": item_database.block_data[item]["name"],
-				"rarity": item_database.block_data[item]["rarity"], # To categorize it
-				"icon": item_database.block_data[item]["item_preview"],
-				"amount": 0
-			}
+		inventory[item] = {
+			"uid": item_database.block_data[item]["uid"], # May remove in the future
+			"name": item_database.block_data[item]["name"],
+			"icon": item_database.block_data[item]["item_preview"],
+			"rarity": item_database.block_data[item]["rarity"], # To categorize it
+			"chance_to_spawn": item_database.block_data[item]["chance_to_spawn"], # To categorize it
+			"amount": 0
+		}
 
 
 func load_inventory_visual() -> void:

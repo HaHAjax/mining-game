@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=6 format=3 uid="uid://laaqnvkxj53i"]
+
+[ext_resource type="Texture2D" uid="uid://pp865km5ehh5" path="res://assets/textures/ore_blocks/uncommon/iron.png" id="1_g0que"]
+[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="1_rsikv"]
+[ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="2_g53h8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xh2ye"]
+albedo_texture = ExtResource("1_g0que")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_3rfnm"]
+material = SubResource("StandardMaterial3D_xh2ye")
+
+[resource]
+script = ExtResource("2_g53h8")
+block_name = "Iron"
+block_type = 2
+rarity = 1
+spawn_depth = 0
+chance_to_spawn = 0.4
+block_mesh = SubResource("BoxMesh_3rfnm")
+item_preview = ExtResource("1_rsikv")
+metadata/_custom_type_script = "uid://h82db102rlur"

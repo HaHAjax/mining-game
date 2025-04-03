@@ -16,9 +16,9 @@ var save_path := "user://player_data.tres"
 @onready var item_database := ItemDatabase.new()
 @onready var block_helper := BlockHelper.new()
 @onready var player: CharacterBody3D
+@onready var grid_map_script: GridMapScript
 
-@onready var test_var := "test"
-
+var block_spawn_chances: Array[float]
 
 func _ready():
 	if load_player_data() != null:
@@ -26,6 +26,8 @@ func _ready():
 	else:
 		player_data = PlayerData.new()
 		player_data.inventory = inventory_manager.inventory
+	
+	grid_map_script = get_tree().get_root().find_child("GridMap", true, false)
 
 	game_loop.set_variables(player_data, inventory_manager, item_database, block_helper)
 
@@ -34,16 +36,16 @@ func set_player(input_player: CharacterBody3D) -> void:
 	player = input_player
 
 
-func test_function() -> String:
-	return "test"
-
-
 func setup_everything() -> void:
+	grid_map_script = get_tree().get_root().find_child("GridMap", true, false)
 	block_helper.setup_everything()
 	item_database.set_block_data()
 	inventory_manager.set_inventory_from_database()
 	player_data.set_inventory_from_manager()
 	game_loop.inventory_ui.set_inventory_manager(inventory_manager)
+	for block_chance in item_database.block_data.values():
+		block_spawn_chances.append(block_chance["chance_to_spawn"])
+	grid_map_script.set_weights(block_spawn_chances)
 
 
 func save_player_data() -> void:

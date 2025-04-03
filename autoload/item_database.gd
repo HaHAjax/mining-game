@@ -5,7 +5,9 @@ var block_uids := {
 	"air" = "uid://c6f0xrxysihy5",
 	"stone" = "uid://dhulexiov7gye",
 	"testing_common" = "uid://dswffhq1jhlmp",
+	"coal" = "uid://cgm6a10s8i6bw",
 	"testing_uncommon" = "uid://dn2unky0ircn4",
+	"iron" = "uid://laaqnvkxj53i",
 	"testing_rare" = "uid://doby8ypt4r52o",
 	"testing_epic" = "uid://cnnc2r5rc2rjb",
 }

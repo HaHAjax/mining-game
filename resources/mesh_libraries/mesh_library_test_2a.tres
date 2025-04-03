@@ -1,22 +1,44 @@
-[gd_resource type="MeshLibrary" script_class="BlockHelper" load_steps=18 format=3 uid="uid://cxkcq2td3xrso"]
+[gd_resource type="MeshLibrary" script_class="BlockHelper" load_steps=26 format=3 uid="uid://cxkcq2td3xrso"]
 
 [ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="1_rbdxv"]
 [ext_resource type="Resource" uid="uid://c6f0xrxysihy5" path="res://resources/block_resources/block_data/defaults/air.tres" id="2_158qm"]
 [ext_resource type="Resource" uid="uid://dhulexiov7gye" path="res://resources/block_resources/block_data/defaults/stone.tres" id="3_t6y6b"]
-[ext_resource type="Resource" uid="uid://dswffhq1jhlmp" path="res://resources/block_resources/block_data/ores/testing_common.tres" id="4_mf2rf"]
-[ext_resource type="Resource" uid="uid://dn2unky0ircn4" path="res://resources/block_resources/block_data/ores/testing_uncommon.tres" id="5_1w7yt"]
-[ext_resource type="Resource" uid="uid://doby8ypt4r52o" path="res://resources/block_resources/block_data/ores/testing_rare.tres" id="6_q3pr0"]
+[ext_resource type="Resource" uid="uid://cgm6a10s8i6bw" path="res://resources/block_resources/block_data/ores/common/coal.tres" id="4_mei7h"]
+[ext_resource type="Resource" uid="uid://dswffhq1jhlmp" path="res://resources/block_resources/block_data/ores/common/testing_common.tres" id="5_0tjon"]
+[ext_resource type="Resource" uid="uid://laaqnvkxj53i" path="res://resources/block_resources/block_data/ores/uncommon/iron.tres" id="6_vcgju"]
 [ext_resource type="Script" uid="uid://nefw8w1ptcu5" path="res://resources/block_data/block_helper.gd" id="7_4f4ri"]
-[ext_resource type="Resource" uid="uid://cnnc2r5rc2rjb" path="res://resources/block_resources/block_data/ores/testing_epic.tres" id="7_8hsps"]
+[ext_resource type="Resource" uid="uid://dn2unky0ircn4" path="res://resources/block_resources/block_data/ores/uncommon/testing_uncommon.tres" id="7_y4btd"]
+[ext_resource type="Resource" uid="uid://doby8ypt4r52o" path="res://resources/block_resources/block_data/ores/rare/testing_rare.tres" id="8_8ymck"]
 [ext_resource type="BoxMesh" uid="uid://bu6wrgsx1mveg" path="res://resources/block_resources/mesh_library_data/defaults/air.tres" id="8_rbdxv"]
+[ext_resource type="Resource" uid="uid://cnnc2r5rc2rjb" path="res://resources/block_resources/block_data/ores/epic/testing_epic.tres" id="9_6cwyh"]
 [ext_resource type="BoxMesh" uid="uid://ln7qff5he7em" path="res://resources/block_resources/mesh_library_data/defaults/stone.tres" id="9_tsayd"]
 [ext_resource type="Texture2D" uid="uid://ckfd1xsb4mxau" path="res://assets/textures/default_blocks/stone-remake2.png" id="10_byjyh"]
-[ext_resource type="BoxMesh" uid="uid://dftkpwub7cmx" path="res://resources/block_resources/mesh_library_data/ores/testing_common.tres" id="10_i5s8o"]
 [ext_resource type="Shape3D" uid="uid://dysnpfgth8dg2" path="res://resources/block_resources/mesh_library_data/default_collision_shape.tres" id="11_33h6j"]
-[ext_resource type="BoxMesh" uid="uid://cqsk6deqsnglt" path="res://resources/block_resources/mesh_library_data/ores/testing_uncommon.tres" id="11_byjyh"]
-[ext_resource type="BoxMesh" uid="uid://c1wen7s7bvuwk" path="res://resources/block_resources/mesh_library_data/ores/testing_rare.tres" id="12_33h6j"]
-[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="12_w5low"]
-[ext_resource type="BoxMesh" uid="uid://x38fkysnf61g" path="res://resources/block_resources/mesh_library_data/ores/testing_epic.tres" id="13_w5low"]
+[ext_resource type="Texture2D" uid="uid://djna38pt0brdd" path="res://assets/textures/ore_blocks/common/coal.png" id="14_xh2ye"]
+[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="15_3rfnm"]
+[ext_resource type="BoxMesh" uid="uid://dftkpwub7cmx" path="res://resources/block_resources/mesh_library_data/ores/testing_common.tres" id="16_ijr1x"]
+[ext_resource type="Texture2D" uid="uid://pp865km5ehh5" path="res://assets/textures/ore_blocks/uncommon/iron.png" id="17_uqs4v"]
+[ext_resource type="BoxMesh" uid="uid://cqsk6deqsnglt" path="res://resources/block_resources/mesh_library_data/ores/testing_uncommon.tres" id="18_dfnw8"]
+[ext_resource type="BoxMesh" uid="uid://c1wen7s7bvuwk" path="res://resources/block_resources/mesh_library_data/ores/testing_rare.tres" id="19_au7ec"]
+[ext_resource type="BoxMesh" uid="uid://x38fkysnf61g" path="res://resources/block_resources/mesh_library_data/ores/testing_epic.tres" id="20_xkkbn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dv177"]
+albedo_texture = ExtResource("14_xh2ye")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_lu1hc"]
+material = SubResource("StandardMaterial3D_dv177")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xh2ye"]
+albedo_texture = ExtResource("17_uqs4v")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_3rfnm"]
+material = SubResource("StandardMaterial3D_xh2ye")
 
 [resource]
 item/0/name = "Air"
@@ -34,37 +56,53 @@ item/1/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1,
 item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/1/navigation_layers = 1
 item/1/preview = ExtResource("10_byjyh")
-item/2/name = "TestingCommon"
-item/2/mesh = ExtResource("10_i5s8o")
+item/2/name = "Coal"
+item/2/mesh = SubResource("BoxMesh_lu1hc")
 item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/2/mesh_cast_shadow = 1
 item/2/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/2/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/2/navigation_layers = 1
-item/2/preview = ExtResource("12_w5low")
-item/3/name = "TestingUncommon"
-item/3/mesh = ExtResource("11_byjyh")
+item/2/preview = ExtResource("15_3rfnm")
+item/3/name = "TestingCommon"
+item/3/mesh = ExtResource("16_ijr1x")
 item/3/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/3/mesh_cast_shadow = 1
 item/3/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/3/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/3/navigation_layers = 1
-item/3/preview = ExtResource("12_w5low")
-item/4/name = "TestingRare"
-item/4/mesh = ExtResource("12_33h6j")
+item/3/preview = ExtResource("15_3rfnm")
+item/4/name = "Iron"
+item/4/mesh = SubResource("BoxMesh_3rfnm")
 item/4/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/4/mesh_cast_shadow = 1
 item/4/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/4/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/4/navigation_layers = 1
-item/4/preview = ExtResource("12_w5low")
-item/5/name = "TestingEpic"
-item/5/mesh = ExtResource("13_w5low")
+item/4/preview = ExtResource("15_3rfnm")
+item/5/name = "TestingUncommon"
+item/5/mesh = ExtResource("18_dfnw8")
 item/5/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/5/mesh_cast_shadow = 1
 item/5/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/5/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/5/navigation_layers = 1
-item/5/preview = ExtResource("12_w5low")
+item/5/preview = ExtResource("15_3rfnm")
+item/6/name = "TestingRare"
+item/6/mesh = ExtResource("19_au7ec")
+item/6/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/6/mesh_cast_shadow = 1
+item/6/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/6/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/6/navigation_layers = 1
+item/6/preview = ExtResource("15_3rfnm")
+item/7/name = "TestingEpic"
+item/7/mesh = ExtResource("20_xkkbn")
+item/7/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/7/mesh_cast_shadow = 1
+item/7/shapes = [ExtResource("11_33h6j"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/7/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/7/navigation_layers = 1
+item/7/preview = ExtResource("15_3rfnm")
 script = ExtResource("7_4f4ri")
-block_resources = Array[ExtResource("1_rbdxv")]([ExtResource("2_158qm"), ExtResource("3_t6y6b"), ExtResource("4_mf2rf"), ExtResource("5_1w7yt"), ExtResource("6_q3pr0"), ExtResource("7_8hsps")])
+block_resources = Array[ExtResource("1_rbdxv")]([ExtResource("2_158qm"), ExtResource("3_t6y6b"), ExtResource("4_mei7h"), ExtResource("5_0tjon"), ExtResource("6_vcgju"), ExtResource("7_y4btd"), ExtResource("8_8ymck"), ExtResource("9_6cwyh")])

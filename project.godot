@@ -72,11 +72,24 @@ toggle_lantern={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_mouse_from_touch=false
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
 [rendering]
 
+occlusion_culling/bvh_build_quality=0
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+shading/overrides/force_vertex_shading=true
+shading/overrides/force_lambert_over_burley=true
 textures/default_filters/use_nearest_mipmap_filter=true
-anti_aliasing/quality/screen_space_aa=1
+environment/ssao/quality=1
+occlusion_culling/occlusion_rays_per_thread=256
 anti_aliasing/quality/use_debanding=true
+occlusion_culling/use_occlusion_culling=true

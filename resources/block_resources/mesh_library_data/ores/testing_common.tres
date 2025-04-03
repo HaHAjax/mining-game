@@ -6,6 +6,7 @@ load_path = "res://.godot/imported/texture_10.png-3f72abba172432380bd86a508e9978
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awqca"]
 albedo_texture = SubResource("CompressedTexture2D_ryavd")
 uv1_triplanar = true
+uv1_world_triplanar = true
 
 [resource]
 material = SubResource("StandardMaterial3D_awqca")

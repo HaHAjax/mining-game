@@ -24,6 +24,15 @@ var ore_block_resource_folder_path: String = "res://resources/block_resources/bl
 
 var default_collision_shape := load("uid://dysnpfgth8dg2")
 
+var block_rarities: Array[String] = [
+	"common/",
+	"uncommon/",
+	"rare/",
+	"epic/",
+	"legendary/",
+	"mythic/"
+]
+
 
 func setup_everything():
 	# Setup the mesh library
@@ -50,13 +59,16 @@ func set_block_resources():
 		block_resources.append(block_resource)
 	
 	# Loading the ores after
-	for item_index in get_item_list().size() - 2:
-		var item_name := get_item_name(item_index + 2).to_snake_case()
-		var block_resource := load(ore_block_resource_folder_path + item_name + ".tres") as BaseBlockResource
-		if block_resource == null:
-			push_error("Block resource not found: " + item_name)
-			continue
-		block_resources.append(block_resource)
+	for rarity in block_rarities:
+		for item_index in get_item_list().size() - 2:
+			var item_name := get_item_name(item_index + 2).to_snake_case()
+			if item_name != "":
+				var block_resource := load(ore_block_resource_folder_path + rarity + item_name + ".tres") as BaseBlockResource
+				if block_resource == null:
+					push_error("Block resource not found: " + rarity + item_name)
+					continue
+				else:
+					block_resources.append(block_resource)
 
 
 func setup_mesh_library():
@@ -83,21 +95,43 @@ func setup_mesh_library():
 			set_item_shapes(file_index, [default_collision_shape])
 			set_item_preview(file_index, block_resource.item_preview)
 	
-	var ore_block_directory := DirAccess.open(ore_block_resource_folder_path)
-	ore_block_directory.list_dir_begin()
-	var ore_block_file_names := Array(ore_block_directory.get_files())
-	ore_block_directory.list_dir_end()
+	var ore_block_file_names := []
+	var ore_index := amount_of_default_blocks
 
-	ore_block_file_names.sort_custom(sort_by_rarity)
+	for rarity in block_rarities:
+		var ore_block_directory := DirAccess.open(ore_block_resource_folder_path + rarity)
+		ore_block_directory.list_dir_begin()
+		ore_block_file_names.append(Array(ore_block_directory.get_files()))
+		# print(ore_block_file_names)
+		ore_block_directory.list_dir_end()
 
-	for file_name in ore_block_file_names:
-		var file_index = ore_block_file_names.find(file_name) + amount_of_default_blocks
-		create_item(file_index)
-		var block_resource := load(ore_block_resource_folder_path + file_name) as BaseBlockResource
-		set_item_mesh(file_index, block_resource.block_mesh)
-		set_item_name(file_index, block_resource.block_name.to_pascal_case())
-		set_item_shapes(file_index, [default_collision_shape])
-		set_item_preview(file_index, block_resource.item_preview)
+		if ore_block_file_names.size() == 0:
+			push_error("No ore block files found in: " + ore_block_resource_folder_path + rarity)
+		else:
+			for i in range(ore_block_file_names.size()):
+				# print(ore_block_file_names[i])
+				ore_block_file_names[i].sort_custom(sort_by_rarity)
+
+	for i in range(ore_block_file_names.size()):
+		for file_name in ore_block_file_names[i]:
+			create_item(ore_index)
+			var block_resource: BaseBlockResource
+			for rarity in block_rarities:
+				if load(ore_block_resource_folder_path + rarity + file_name) != null:
+					block_resource = load(ore_block_resource_folder_path + rarity + file_name) as BaseBlockResource
+					break
+				else:
+					# push_error("Block resource not found: " + rarity + file_name)
+					continue
+			if block_resource == null:
+				push_error("Block resource not found: " +  file_name)
+			else:
+				set_item_mesh(ore_index, block_resource.block_mesh)
+				set_item_name(ore_index, block_resource.block_name.to_pascal_case())
+				set_item_shapes(ore_index, [default_collision_shape])
+				set_item_preview(ore_index, block_resource.item_preview)
+				ore_index += 1
+	# print(get_item_list())
 
 
 # The following 5 functions help to get the block resource variables by name
@@ -189,23 +223,38 @@ func _ready():
 
 
 func sort_by_rarity(a: String, b: String) -> bool:
-	var a_file_path := ore_block_resource_folder_path + a
-	var b_file_path := ore_block_resource_folder_path + b
+	var a_file_path: String
+	var b_file_path: String
+	for rarity in block_rarities:
+		a_file_path = ore_block_resource_folder_path + rarity + a
+		b_file_path = ore_block_resource_folder_path + rarity + b
 
-	var a_block_resource := load(a_file_path) as BaseBlockResource
-	var b_block_resource := load(b_file_path) as BaseBlockResource
+		var a_block_resource: BaseBlockResource
+		var b_block_resource: BaseBlockResource
 
-	# Sort by rarity
-	if a_block_resource.rarity < b_block_resource.rarity:
-		return true
-	elif a_block_resource.rarity > b_block_resource.rarity:
-		return false
-	else:
-		# If the rarities are the same, sort by name
-		if a_block_resource.block_name > b_block_resource.block_name:
-			return true
-		elif a_block_resource.block_name < b_block_resource.block_name:
+		if load(a_file_path) != null:
+			a_block_resource = load(a_file_path) as BaseBlockResource
+		else:
 			return false
+		if load(b_file_path) != null:
+			b_block_resource = load(b_file_path) as BaseBlockResource
+		else:
+			return false
+
+		# if a_block_resource == null or b_block_resource == null:
+		# 	return false
+
+		# Sort by rarity
+		if a_block_resource.rarity < b_block_resource.rarity:
+			return true
+		elif a_block_resource.rarity > b_block_resource.rarity:
+			return false
+		else:
+			# If the rarities are the same, sort by name
+			if a_block_resource.chance_to_spawn > b_block_resource.chance_to_spawn:
+				return true
+			elif a_block_resource.chance_to_spawn < b_block_resource.chance_to_spawn:
+				return false
 	return false
 
 

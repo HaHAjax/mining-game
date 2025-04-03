@@ -4,6 +4,7 @@ extends HBoxContainer
 @export var item_name: Label
 @export var item_amount: Label
 @export var item_rarity: BaseBlockResource.BlockRarities
+@export var item_chance_to_spawn: float
 
 func set_item_icon(icon: Texture) -> void:
 	if item_icon == null:
@@ -23,7 +24,6 @@ func set_item_amount(amount: int) -> void:
 		return
 	item_amount.text = str(amount)
 
-
 func set_item_rarity(rarity: BaseBlockResource.BlockRarities) -> void:
 	if item_name == null:
 		push_error("Item name is null")
@@ -31,3 +31,6 @@ func set_item_rarity(rarity: BaseBlockResource.BlockRarities) -> void:
 	item_rarity = rarity
 	item_name.add_theme_color_override("font_color", GameLoop.item_database.get_rarity_color(rarity))
 	# item_name.add_color_override("font_color", ItemDatabase.get_rarity_color(rarity))
+
+func set_item_chance_to_spawn(chance: float) -> void:
+	item_chance_to_spawn = chance
