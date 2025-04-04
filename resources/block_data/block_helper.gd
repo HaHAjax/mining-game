@@ -63,7 +63,6 @@ func set_block_resources():
 		for item_index in get_item_list().size() - 2:
 			var item_name := get_item_name(item_index + 2).to_snake_case()
 			if ResourceLoader.exists(ore_block_resource_folder_path + rarity + item_name + ".tres"):
-				print("it exists!: " + ore_block_resource_folder_path + rarity + item_name + ".tres")
 				var block_resource := load(ore_block_resource_folder_path + rarity + item_name + ".tres") as BaseBlockResource
 				if block_resource == null:
 					push_error("Block resource not found: " + rarity + item_name)
