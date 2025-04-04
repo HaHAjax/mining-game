@@ -15,6 +15,12 @@ sky_material = SubResource("ProceduralSkyMaterial_2ctto")
 [sub_resource type="Environment" id="Environment_cpgsw"]
 background_mode = 2
 sky = SubResource("Sky_vfr56")
+tonemap_mode = 4
+fog_enabled = true
+fog_light_color = Color(0.313778, 0.516848, 1, 1)
+fog_light_energy = 0.5
+fog_depth_begin = 209.0
+fog_depth_end = 4000.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_45kte"]
 
