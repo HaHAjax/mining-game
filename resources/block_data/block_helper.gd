@@ -62,7 +62,8 @@ func set_block_resources():
 	for rarity in block_rarities:
 		for item_index in get_item_list().size() - 2:
 			var item_name := get_item_name(item_index + 2).to_snake_case()
-			if item_name != "":
+			if ResourceLoader.exists(ore_block_resource_folder_path + rarity + item_name + ".tres"):
+				print("it exists!: " + ore_block_resource_folder_path + rarity + item_name + ".tres")
 				var block_resource := load(ore_block_resource_folder_path + rarity + item_name + ".tres") as BaseBlockResource
 				if block_resource == null:
 					push_error("Block resource not found: " + rarity + item_name)
@@ -117,20 +118,21 @@ func setup_mesh_library():
 			create_item(ore_index)
 			var block_resource: BaseBlockResource
 			for rarity in block_rarities:
-				if load(ore_block_resource_folder_path + rarity + file_name) != null:
+				if ResourceLoader.exists(ore_block_resource_folder_path + rarity + file_name):
 					block_resource = load(ore_block_resource_folder_path + rarity + file_name) as BaseBlockResource
 					break
 				else:
 					# push_error("Block resource not found: " + rarity + file_name)
 					continue
-			if block_resource == null:
-				push_error("Block resource not found: " +  file_name)
-			else:
+			if block_resource != null:
 				set_item_mesh(ore_index, block_resource.block_mesh)
 				set_item_name(ore_index, block_resource.block_name.to_pascal_case())
 				set_item_shapes(ore_index, [default_collision_shape])
 				set_item_preview(ore_index, block_resource.item_preview)
 				ore_index += 1
+			else:
+				push_error("Block resource not found: " +  file_name)
+				
 	# print(get_item_list())
 
 
@@ -232,11 +234,8 @@ func sort_by_rarity(a: String, b: String) -> bool:
 		var a_block_resource: BaseBlockResource
 		var b_block_resource: BaseBlockResource
 
-		if load(a_file_path) != null:
+		if ResourceLoader.exists(a_file_path) and ResourceLoader.exists(b_file_path):
 			a_block_resource = load(a_file_path) as BaseBlockResource
-		else:
-			return false
-		if load(b_file_path) != null:
 			b_block_resource = load(b_file_path) as BaseBlockResource
 		else:
 			return false
