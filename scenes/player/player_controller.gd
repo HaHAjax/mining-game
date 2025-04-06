@@ -139,27 +139,30 @@ func update_lights() -> void:
 
 
 func update_mining() -> void:
-	if is_mining.call() and can_mine.call():
-		if is_looking_at_mineable.call():
+	if input_mine and raycast_node.is_colliding() and raycast_node.get_collider().has_method("destroy_block"):
+		# if is_looking_at_mineable.call():
 
-			# Getting the block position
-			var block_position := raycast_node.get_collision_point() - raycast_node.get_collision_normal()
+		var collision_normal := raycast_node.get_collision_normal()
 
-			# Fixing the position to be accurate on certain edge cases
-			if raycast_node.get_collision_normal().x == -1:
-				block_position.x -= 1
-			if raycast_node.get_collision_normal().y == -1:
-				block_position.y -= 1
-			if raycast_node.get_collision_normal().z == -1:
-				block_position.z -= 1
-			
-			# For debugging
-			# print("Collision normal: ", block_position - raycast_node.get_collision_point())
-			# print("Collision point: ", raycast_node.get_collision_point())
-			# print("Combined: ", block_position)
+		# Getting the block position
+		var block_position := raycast_node.get_collision_point() - collision_normal
+		
 
-			# Destroying the block
-			raycast_node.get_collider().destroy_block(block_position)
+		# Fixing the position to be accurate on certain edge cases
+		if collision_normal.x == -1:
+			block_position.x -= 1
+		if collision_normal.y == -1:
+			block_position.y -= 1
+		if collision_normal.z == -1:
+			block_position.z -= 1
+		
+		# For debugging
+		# print("Collision normal: ", block_position - raycast_node.get_collision_point())
+		# print("Collision point: ", raycast_node.get_collision_point())
+		# print("Combined: ", block_position)
 
-			# Generating new blocks around the destroyed block
-			raycast_node.get_collider().generate_new_blocks(raycast_node.get_collider().local_to_map(block_position))
+		# Destroying the block
+		raycast_node.get_collider().destroy_block(block_position)
+
+		# Generating new blocks around the destroyed block
+		raycast_node.get_collider().generate_new_blocks(raycast_node.get_collider().local_to_map(block_position))

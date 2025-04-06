@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=3 format=3 uid="uid://c6f0xrxysihy5"]
+[gd_resource type="Resource" script_class="BaseBlockResource" load_steps=2 format=3 uid="uid://c6f0xrxysihy5"]
 
-[ext_resource type="BoxMesh" uid="uid://bu6wrgsx1mveg" path="res://resources/block_resources/mesh_library_data/defaults/air.tres" id="1_ejnr6"]
 [ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="2_sykay"]
 
 [resource]
@@ -10,5 +9,4 @@ block_type = 0
 rarity = -1
 spawn_depth = -1
 chance_to_spawn = 0.5
-block_mesh = ExtResource("1_ejnr6")
 metadata/_custom_type_script = "uid://h82db102rlur"

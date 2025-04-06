@@ -95,19 +95,21 @@ func start_game() -> void:
 
 	# get_tree().get_root().add_child()
 
-	if other.load_player_data() != null:
-		player_data = other.load_player_data()
-		# print("Player data not null: ", player_data.inventory)
-	# print(player_data.inventory)
-	if player_data.inventory.is_empty():
-		# print("Player data inventory is empty")
-		if inventory_manager.inventory.is_empty():
-			# print("Inventory manager inventory is empty")
-			inventory_manager.set_inventory_from_database()
-		player_data.set_inventory_from_manager()
-	else:
-		# print("Player data inventory is not empty")
-		inventory_manager.inventory = player_data.inventory
+	other.load_game()
+
+	# if other.load_player_data() != null:
+	# 	player_data = other.load_player_data()
+	# 	# print("Player data not null: ", player_data.inventory)
+	# # print(player_data.inventory)
+	# if player_data.inventory.is_empty():
+	# 	# print("Player data inventory is empty")
+	# 	if inventory_manager.inventory.is_empty():
+	# 		# print("Inventory manager inventory is empty")
+	# 		inventory_manager.set_inventory_from_database()
+	# 	player_data.set_inventory_from_manager()
+	# else:
+	# 	# print("Player data inventory is not empty")
+	# 	inventory_manager.inventory = player_data.inventory
 
 	inventory_ui.set_inventory_manager(inventory_manager)
 

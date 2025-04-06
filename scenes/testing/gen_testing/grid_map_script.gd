@@ -21,11 +21,10 @@ class_name GridMapScript
 
 
 func _ready() -> void:
-	# Generating the starting blocks
-	generate_initial_blocks()
+	pass
 
 
-func generate_initial_blocks():
+func generate_initial_blocks() -> void:
 	# Calculating these once for performance
 	var halved_blocks_amount_width := Vector3i(ceil(blocks_amount_width.x / 2.0), ceil(blocks_amount_width.y / 2.0), ceil(blocks_amount_width.z / 2.0))
 	var halved_empty_space := Vector3i(ceil(empty_space.x / 2.0), ceil(empty_space.y / 2.0), ceil(empty_space.z / 2.0))
@@ -34,7 +33,7 @@ func generate_initial_blocks():
 	for x in range(-halved_blocks_amount_width.x + -halved_empty_space.x, (halved_blocks_amount_width.x + halved_empty_space.x) + 1):
 		for y in range(-halved_blocks_amount_width.y + -halved_empty_space.y, (halved_blocks_amount_width.y + halved_empty_space.y) + 1):
 			for z in range(-halved_blocks_amount_width.z + -halved_empty_space.z, (halved_blocks_amount_width.z + halved_empty_space.z) + 1):
-				
+
 				# Checking if the block is not inside the empty space
 				if abs(x) > halved_empty_space.x or abs(y) > halved_empty_space.y or abs(z) > halved_empty_space.z:
 
@@ -49,13 +48,19 @@ func generate_initial_blocks():
 
 func set_weights(weights: Array[float]) -> void:
 	# Setting the weights for the blocks
-	for i in range(weights.size()):
-		block_weights.append(weights[i])
+	block_weights = weights
+	# print(block_weights)
 
+
+var prev_map_coordinate: Vector3i
 
 func destroy_block(world_coordinate: Vector3) -> void:
 	# Making the block coordinate relative to the grid map
 	var map_coordinate := local_to_map(world_coordinate)
+
+	# Preventing trying to destroy the same block multiple times
+	if map_coordinate == prev_map_coordinate:
+		return
 
 	# For debugging
 	# print("map_coordinate: ", map_coordinate)
@@ -65,6 +70,8 @@ func destroy_block(world_coordinate: Vector3) -> void:
 
 	# Destroying the block
 	generate_a_block(map_coordinate, true)
+
+	prev_map_coordinate = map_coordinate
 
 
 func generate_new_blocks(destroyed_block_position: Vector3i) -> void:
@@ -80,6 +87,7 @@ func generate_new_blocks(destroyed_block_position: Vector3i) -> void:
 
 
 func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
+	# print("generating a block")
 	if is_air:
 		set_cell_item(block_position, 0)
 	else:
@@ -90,6 +98,6 @@ func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
 			# - generate a weighted number by rarity (that rarity will have a chance to spawn)
 			# - generate a weighted number from the ores in that rarity (from each block's chance to spawn)
 			# - spawn a block based on the second weighted number
-			set_cell_item(block_position, rng.rand_weighted([0.6, 0.5, 0.4, 0.3, 0.1, 0.1]) + 2)
+			set_cell_item(block_position, rng.rand_weighted(block_weights) + 2)
 		else:
 			set_cell_item(block_position, 1)
