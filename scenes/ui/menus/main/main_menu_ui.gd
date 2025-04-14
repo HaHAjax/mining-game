@@ -5,7 +5,7 @@ extends Control
 
 
 func _play_button_pressed() -> void:
-	GameLoop.start_game()
+	GameLoop.curr_game_state = GameLoop.GameStates.PLAY
 
 func _quit_button_pressed() -> void:
 	GameLoop.quit_game()

@@ -1,14 +1,16 @@
 extends Node
 
 # Stuff to make this a singleton
-static var ref: AutoloadManager
+static var ref: SingletonManager
 func _init() -> void:
 	if not ref: ref = self
 	# else: queue_free()
 	
 	player_data = load_player_data()
 
-var save_path := "user://player_data.tres"
+const SAVE_PATH := "user://player_data.tres"
+
+var stored_player_data: PlayerData = preload(SAVE_PATH)
 
 @onready var game_loop: Node = get_node("/root/GameLoop")
 @onready var player_data: PlayerData
@@ -22,16 +24,22 @@ var block_spawn_chances: Array[float]
 
 
 func _ready():
-	if load_player_data() != null:
+	# If the player data does exist, load it
+	if player_data_exists():
+		print("before: ", player_data.inventory)
 		player_data = load_player_data()
+		print("after: ", player_data.inventory)
+	# Otherwise, create a new player data object
 	else:
 		player_data = PlayerData.new()
-		player_data.inventory = inventory_manager.inventory
 	
-	for block_chance in item_database.block_data.values():
-		block_spawn_chances.append(block_chance["chance_to_spawn"])
-	grid_map_script = get_tree().get_root().find_child("GridMap", true, false) as GridMapScript
-	grid_map_script.set_weights(block_spawn_chances)
+	# Set the inventory manager's inventory to the saved player data's inventory
+	inventory_manager.inventory = player_data.inventory
+	
+	# for block_chance in item_database.block_data.values():
+	# 	block_spawn_chances.append(block_chance["chance_to_spawn"])
+	# grid_map_script = get_tree().get_root().find_child("GridMap", true, false) as GridMapScript
+	# grid_map_script.set_weights(block_spawn_chances)
 	# print("from autoload_manager: ", grid_map_script)
 
 	game_loop.set_variables(player_data, inventory_manager, item_database, block_helper)
@@ -51,6 +59,8 @@ func setup_everything() -> void:
 		if block_chance["type"] != 0 and block_chance["type"] != 1:
 			block_spawn_chances.append(block_chance["chance_to_spawn"])
 	grid_map_script = get_tree().get_root().find_child("GenAndMineTesting", true, false).find_child("GridMap", true, false) as GridMapScript
+	if grid_map_script == null:
+		return
 	grid_map_script.set_weights(block_spawn_chances)
 	# print("from autoload_manager: ", grid_map_script)
 	grid_map_script.generate_initial_blocks()
@@ -58,14 +68,17 @@ func setup_everything() -> void:
 
 func save_player_data() -> void:
 	player_data.inventory = inventory_manager.inventory
-	# print(player_data.inventory)
-	ResourceSaver.save(player_data, save_path)
+	print("actual player inventory: ", player_data.inventory)
+	ResourceSaver.save(player_data, SAVE_PATH)
+	print("stored player inventory: ", load_player_data().inventory)
 
 
 func load_player_data() -> PlayerData:
-	if ResourceLoader.exists(save_path):
-		return load(save_path)
-	return null
+	return stored_player_data
+
+
+func player_data_exists() -> bool:
+	return stored_player_data != null
 
 
 func load_game() -> void:

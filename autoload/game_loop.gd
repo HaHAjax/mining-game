@@ -9,10 +9,28 @@ var inventory_ui: Control
 var player_scene := preload("res://scenes/player/player.tscn")
 var player: CharacterBody3D
 
-var save_path := "user://player_data.tres"
+const SAVE_PATH := "user://player_data.tres"
+const PAUSE_MENU_UID := "uid://c5fgqrquf6ymo"
+
+var pause_menu: Control
 
 
-var other: AutoloadManager
+var other: SingletonManager
+
+enum GameStates {
+	MAIN_MENU,
+	PLAY,
+	PAUSED
+}
+
+var curr_game_state: GameStates = GameStates.MAIN_MENU
+var prev_game_state: GameStates = GameStates.MAIN_MENU
+
+
+# Signals
+signal game_state_changed(old_state: GameStates, new_state: GameStates)
+signal game_paused()
+signal game_unpaused()
 
 
 func _init():
@@ -33,9 +51,16 @@ func _init():
 
 
 func _ready():
-	other = AutoloadManager.ref
+	other = SingletonManager.ref
 
-	other._ready()
+	# Making sure that the game loop is always active
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	pause_menu = load(PAUSE_MENU_UID).instantiate()
+
+	get_tree().get_root().add_child.call_deferred(pause_menu)
+
+	pause_menu.hide()
 
 
 	# var inventory = inventory_manager.inventory
@@ -72,6 +97,51 @@ func set_variables(input_player_data: PlayerData, input_inventory_manager: Inven
 
 	# inventory_manager.set_inventory_ui(inventory_ui)
 	# inventory_manager.load_inventory_visual()
+
+
+func _process(_delta: float) -> void:
+	if prev_game_state != curr_game_state:
+		game_state_changed.emit(prev_game_state, curr_game_state)
+		match curr_game_state:
+			GameStates.MAIN_MENU when prev_game_state == GameStates.PAUSED:
+				print("returning to main menu")
+				pass
+			GameStates.PLAY when prev_game_state == GameStates.MAIN_MENU:
+				print("starting game")
+				start_game()
+				pass
+			GameStates.PAUSED when prev_game_state == GameStates.PLAY:
+				pause_game()
+			GameStates.PLAY when prev_game_state == GameStates.PAUSED:
+				resume_game()
+		prev_game_state = curr_game_state
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause") and (curr_game_state == GameStates.PLAY or curr_game_state == GameStates.PAUSED):
+		match curr_game_state:
+			GameStates.PLAY:
+				curr_game_state = GameStates.PAUSED
+			GameStates.PAUSED:
+				curr_game_state = GameStates.PLAY
+
+
+func pause_game() -> void:
+	# Emit the game paused signal
+	game_paused.emit()
+	# Pause the game
+	get_tree().paused = true
+	# Show the pause menu
+	pause_menu.show()
+
+
+func resume_game() -> void:
+	# Emit the game unpaused signal
+	game_unpaused.emit()
+	# Unpause the game
+	get_tree().paused = false
+	# Hide the pause menu
+	pause_menu.hide()
 
 
 func start_game() -> void:
@@ -116,6 +186,8 @@ func start_game() -> void:
 	inventory_manager.set_inventory_ui(inventory_ui)
 	inventory_manager.load_inventory_visual()
 
+	pause_menu.move_to_front()
+
 
 func quit_game() -> void:
 	# Save player_scene data when quitting the game
@@ -124,7 +196,23 @@ func quit_game() -> void:
 	get_tree().quit()
 
 
-func _notification(what):
+func input_quit() -> void:
+	quit_game()
+
+
+func input_resume_game() -> void:
+	curr_game_state = GameStates.PLAY
+
+
+func go_to_main_menu() -> void:
+	other.save_player_data()
+	print("Player data saved.")
+	get_tree().get_root().find_child("GenAndMineTesting", true, false).queue_free()
+	get_tree().get_root().add_child(load("res://scenes/ui/menus/main/main_menu_ui.tscn").instantiate())
+	curr_game_state = GameStates.MAIN_MENU
+
+
+func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		# Save player_scene data when the game is closed
 		other.save_player_data()

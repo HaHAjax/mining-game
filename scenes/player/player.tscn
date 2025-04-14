@@ -19,7 +19,7 @@ height = 1.95
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hud")]
 script = ExtResource("1_gmlin")
 jump_velocity = 5.0
-hud = NodePath("HUD/Control")
+hud = NodePath("Control")
 lantern_attenuation = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -43,17 +43,18 @@ spot_range = 25.0
 spot_attenuation = 1.5
 spot_angle = 20.0
 
-[node name="HUD" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="HUD"]
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="HUD/Control"]
+[node name="TextureRect" type="TextureRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -68,6 +69,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_lvxji")
 stretch_mode = 2
+
+[node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="LanternLight" type="OmniLight3D" parent="."]
 unique_name_in_owner = true

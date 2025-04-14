@@ -26,6 +26,7 @@ var attempting_jump := func() -> bool: return input_jump
 
 # References to node(s)
 @onready var raycast_node := $Camera3D/RayCast3D as RayCast3D
+@onready var camera: Camera3D = $Camera3D
 @onready var flashlight_light: SpotLight3D = $Camera3D/FlashlightLight
 @onready var lantern_light: OmniLight3D = $LanternLight
 @export var hud: Control
