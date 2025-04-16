@@ -92,11 +92,6 @@ func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
 		set_cell_item(block_position, 0)
 	else:
 		if randi() % 4 == 0: # 25% chance to spawn ore
-			# TODO:
-			# - generate a weighted number by rarity (that rarity will have a chance to spawn)
-			# - generate a weighted number from the ores in that rarity (from each block's chance to spawn)
-			# - spawn a block based on the second weighted number
-
 			var rng := RandomNumberGenerator.new()
 			rng.randomize()
 			
@@ -116,9 +111,5 @@ func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
 					matching_ore_weights.append(0.0)
 
 			set_cell_item(block_position, rng.rand_weighted(matching_ore_weights) + 2)
-
-			# var rng := RandomNumberGenerator.new()
-			# rng.randomize()
-			# set_cell_item(block_position, rng.rand_weighted(block_weights) + 2)
 		else:
 			set_cell_item(block_position, 1)
