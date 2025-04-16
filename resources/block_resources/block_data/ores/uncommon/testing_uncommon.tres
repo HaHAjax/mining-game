@@ -2,7 +2,7 @@
 
 [ext_resource type="BoxMesh" uid="uid://cqsk6deqsnglt" path="res://resources/block_resources/mesh_library_data/ores/testing_uncommon.tres" id="1_d6qkl"]
 [ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="2_d6q1t"]
-[ext_resource type="Texture2D" uid="uid://6so472nb2knn" path="res://assets/textures/WIP_no-texture.png" id="2_gw3sa"]
+[ext_resource type="Texture2D" uid="uid://4x7k5n2wams8" path="res://assets/textures/WIP_no-texture.png" id="2_gw3sa"]
 
 [resource]
 script = ExtResource("2_d6q1t")

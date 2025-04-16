@@ -4,7 +4,6 @@
 load_path = "res://.godot/imported/stone-2.png-605445cb8e4475d3a84f59c33f604176.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yu5ug"]
-load_path = "res://.godot/imported/stone-2_normal2.png-fce1aadeebf938a9c2ebbe2a3675cd89.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pi3n8"]
 albedo_texture = SubResource("CompressedTexture2D_fpc0f")

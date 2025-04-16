@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://dsed1w0exrxkf"]
 
-[ext_resource type="Texture2D" uid="uid://c24tvuqjgpk4p" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="1_8afob"]
+[ext_resource type="Texture2D" uid="uid://ci33nvirksdlg" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://bjd7i5myioxq2" path="res://scenes/player/player_controller.gd" id="1_gmlin"]
 [ext_resource type="Script" uid="uid://bsd8jia12vvtr" path="res://scenes/player/camera_controller.gd" id="3_lvxji"]
-[ext_resource type="Texture2D" uid="uid://bpy4fnc2fksi5" path="res://assets/ui/hud/temp_crosshair.png" id="4_lvxji"]
+[ext_resource type="Texture2D" uid="uid://c28mak4w582d4" path="res://assets/ui/hud/temp_crosshair.png" id="4_lvxji"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dovo2"]
 albedo_texture = ExtResource("1_8afob")

@@ -2,7 +2,7 @@
 
 [ext_resource type="BoxMesh" uid="uid://ln7qff5he7em" path="res://resources/block_resources/mesh_library_data/defaults/stone.tres" id="1_vkkr7"]
 [ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="2_injux"]
-[ext_resource type="Texture2D" uid="uid://ckfd1xsb4mxau" path="res://assets/textures/default_blocks/stone-remake2.png" id="2_w3kcj"]
+[ext_resource type="Texture2D" uid="uid://blqyqxqrp63lp" path="res://assets/textures/default_blocks/stone-remake2.png" id="2_w3kcj"]
 
 [resource]
 script = ExtResource("2_injux")

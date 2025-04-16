@@ -1,7 +1,7 @@
 extends RefCounted
 class_name ItemDatabase
 
-var block_uids := {
+var _block_uids := {
 	"air" = "uid://c6f0xrxysihy5",
 	"stone" = "uid://dhulexiov7gye",
 	"testing_common" = "uid://dswffhq1jhlmp",
@@ -14,6 +14,26 @@ var block_uids := {
 
 var block_data := {}
 
+var _block_rarity_spawn_chance := {
+	"none": 0.0,
+	"common": 0.5,
+	"uncommon": 0.3,
+	"rare": 0.15,
+	"epic": 0.05,
+	"legendary": 0.01,
+	"mythic": 0.005
+}
+
+var block_rarity_spawn_chance: Dictionary:
+	get:
+		return _block_rarity_spawn_chance
+
+var _default_block_amount_plus_air: int = 2
+
+var default_block_amount_plus_air: int:
+	get:
+		return _default_block_amount_plus_air
+
 
 func _ready():
 	pass
@@ -24,8 +44,8 @@ func get_block_data() -> Dictionary:
 
 
 func set_block_data() -> void:
-	for block_name in block_uids.keys():
-		var block_uid = block_uids[block_name]
+	for block_name in _block_uids.keys():
+		var block_uid = _block_uids[block_name]
 		var block_resource = load(block_uid)
 		if block_resource == null:
 			push_error("Block resource not found: " + block_name)

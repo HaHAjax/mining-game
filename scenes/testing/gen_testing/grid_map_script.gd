@@ -92,12 +92,33 @@ func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
 		set_cell_item(block_position, 0)
 	else:
 		if randi() % 4 == 0: # 25% chance to spawn ore
-			var rng := RandomNumberGenerator.new()
-			rng.randomize()
 			# TODO:
 			# - generate a weighted number by rarity (that rarity will have a chance to spawn)
 			# - generate a weighted number from the ores in that rarity (from each block's chance to spawn)
 			# - spawn a block based on the second weighted number
-			set_cell_item(block_position, rng.rand_weighted(block_weights) + 2)
+
+			var rng := RandomNumberGenerator.new()
+			rng.randomize()
+			
+			var rarity_chosen := rng.rand_weighted(GameLoop.item_database.block_rarity_spawn_chance.values()) - 1
+			var chosen_rarity: BaseBlockResource.BlockRarities = BaseBlockResource.BlockRarities.values()[rarity_chosen]
+			var matching_ore_weights := []
+			var amount_of_iterations_to_skip := GameLoop.item_database.default_block_amount_plus_air
+			var iteration_count := 0
+			for block_name in GameLoop.item_database.block_data.keys():
+				if iteration_count < amount_of_iterations_to_skip:
+					iteration_count += 1
+					continue
+				var block_rarity = GameLoop.item_database.block_data[block_name]["rarity"]
+				if block_rarity == chosen_rarity:
+					matching_ore_weights.append(GameLoop.item_database.block_data[block_name]["chance_to_spawn"])
+				else:
+					matching_ore_weights.append(0.0)
+
+			set_cell_item(block_position, rng.rand_weighted(matching_ore_weights) + 2)
+
+			# var rng := RandomNumberGenerator.new()
+			# rng.randomize()
+			# set_cell_item(block_position, rng.rand_weighted(block_weights) + 2)
 		else:
 			set_cell_item(block_position, 1)

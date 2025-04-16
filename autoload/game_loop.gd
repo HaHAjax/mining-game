@@ -10,12 +10,14 @@ var player_scene := preload("res://scenes/player/player.tscn")
 var player: CharacterBody3D
 
 const SAVE_PATH := "user://player_data.tres"
-const PAUSE_MENU_UID := "uid://c5fgqrquf6ymo"
 
 var pause_menu: Control
 
 
-var other: SingletonManager
+const MAIN_MENU_UI := preload("res://scenes/ui/menus/main/main_menu_ui.tscn")
+const PAUSE_MENU_UI := preload("res://scenes/ui/pause/pause_menu.tscn")
+const GEN_AND_MINE_TESTING := preload("res://scenes/testing/gen_testing/gen_and_mine_testing.tscn")
+
 
 enum GameStates {
 	MAIN_MENU,
@@ -51,12 +53,10 @@ func _init():
 
 
 func _ready():
-	other = SingletonManager.ref
-
 	# Making sure that the game loop is always active
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 
-	pause_menu = load(PAUSE_MENU_UID).instantiate()
+	pause_menu = PAUSE_MENU_UI.instantiate()
 
 	get_tree().get_root().add_child.call_deferred(pause_menu)
 
@@ -147,7 +147,7 @@ func resume_game() -> void:
 func start_game() -> void:
 	get_tree().get_root().find_child("MainMenu", true, false).queue_free()
 	# print(get_tree().get_root().find_child("MainMenu", true, false))
-	get_tree().get_root().add_child(load("res://scenes/testing/gen_testing/gen_and_mine_testing.tscn").instantiate())
+	get_tree().get_root().add_child(GEN_AND_MINE_TESTING.instantiate())
 
 	player = player_scene.instantiate()
 	player.position.y += 1.1
@@ -157,7 +157,7 @@ func start_game() -> void:
 
 	inventory_ui = inventory_ui_scene.instantiate()
 
-	other.setup_everything()
+	SingletonManager.setup_everything()
 	
 	get_tree().get_root().find_child("Player", true, false).find_child("Control", true, false).add_child(inventory_ui)
 
@@ -165,10 +165,10 @@ func start_game() -> void:
 
 	# get_tree().get_root().add_child()
 
-	other.load_game()
+	SingletonManager.load_game()
 
-	# if other.load_player_data() != null:
-	# 	player_data = other.load_player_data()
+	# if SingletonManager.load_player_data() != null:
+	# 	player_data = SingletonManager.load_player_data()
 	# 	# print("Player data not null: ", player_data.inventory)
 	# # print(player_data.inventory)
 	# if player_data.inventory.is_empty():
@@ -191,7 +191,7 @@ func start_game() -> void:
 
 func quit_game() -> void:
 	# Save player_scene data when quitting the game
-	other.save_player_data()
+	SingletonManager.save_player_data()
 	print("Player data saved.")
 	get_tree().quit()
 
@@ -205,15 +205,15 @@ func input_resume_game() -> void:
 
 
 func go_to_main_menu() -> void:
-	other.save_player_data()
+	SingletonManager.save_player_data()
 	print("Player data saved.")
 	get_tree().get_root().find_child("GenAndMineTesting", true, false).queue_free()
-	get_tree().get_root().add_child(load("res://scenes/ui/menus/main/main_menu_ui.tscn").instantiate())
+	get_tree().get_root().add_child(MAIN_MENU_UI.instantiate())
 	curr_game_state = GameStates.MAIN_MENU
 
 
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		# Save player_scene data when the game is closed
-		other.save_player_data()
+		SingletonManager.save_player_data()
 		print("Player data saved.")

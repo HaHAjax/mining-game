@@ -100,9 +100,11 @@ func setup_mesh_library():
 
 	for rarity in block_rarities:
 		var ore_block_directory := DirAccess.open(ore_block_resource_folder_path + rarity)
+		if ore_block_directory == null:
+			push_error("Directory not found: " + ore_block_resource_folder_path + rarity)
+			break
 		ore_block_directory.list_dir_begin()
 		ore_block_file_names.append(Array(ore_block_directory.get_files()))
-		# print(ore_block_file_names)
 		ore_block_directory.list_dir_end()
 
 		if ore_block_file_names.size() == 0:

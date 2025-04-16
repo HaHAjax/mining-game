@@ -1,10 +1,9 @@
 [gd_resource type="BoxMesh" load_steps=3 format=3 uid="uid://x38fkysnf61g"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vihjk"]
-load_path = "res://.godot/imported/texture_10.png-6ebba9cac53386550299b9fc7ba436fd.s3tc.ctex"
+[ext_resource type="Texture2D" uid="uid://ba2w5gpqfyx2o" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="1_pg6cc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg6cc"]
-albedo_texture = SubResource("CompressedTexture2D_vihjk")
+albedo_texture = ExtResource("1_pg6cc")
 uv1_triplanar = true
 
 [resource]

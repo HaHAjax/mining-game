@@ -30,9 +30,6 @@ fog_depth_end = 4000.0
 environment = SubResource("Environment_cpgsw")
 
 [node name="GridMap" type="GridMap" parent="."]
-process_thread_group = 2
-process_thread_group_order = 0
-process_thread_messages = 0
 mesh_library = ExtResource("2_vfr56")
 physics_material = SubResource("PhysicsMaterial_45kte")
 cell_size = Vector3(1, 1, 1)

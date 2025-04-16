@@ -1,16 +1,16 @@
 extends Node
 
 # Stuff to make this a singleton
-static var ref: SingletonManager
+# static var ref: SingletonManager
 func _init() -> void:
-	if not ref: ref = self
+	# if not ref: ref = self
 	# else: queue_free()
 	
 	player_data = load_player_data()
 
 const SAVE_PATH := "user://player_data.tres"
 
-var stored_player_data: PlayerData = preload(SAVE_PATH)
+var stored_player_data: PlayerData = ResourceLoader.load(SAVE_PATH) as PlayerData
 
 @onready var game_loop: Node = get_node("/root/GameLoop")
 @onready var player_data: PlayerData
@@ -74,11 +74,11 @@ func save_player_data() -> void:
 
 
 func load_player_data() -> PlayerData:
-	return stored_player_data
+	return ResourceLoader.load(SAVE_PATH)
 
 
 func player_data_exists() -> bool:
-	return stored_player_data != null
+	return ResourceLoader.load(SAVE_PATH) != null
 
 
 func load_game() -> void:
