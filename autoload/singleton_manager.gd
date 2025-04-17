@@ -5,8 +5,7 @@ extends Node
 func _init() -> void:
 	# if not ref: ref = self
 	# else: queue_free()
-	
-	player_data = load_player_data()
+	pass
 
 const SAVE_PATH := "user://player_data.tres"
 
@@ -23,13 +22,12 @@ var block_spawn_chances: Array[float]
 
 func _ready():
 	# If the player data does exist, load it
-	if player_data_exists():
-		print("before: ", player_data.inventory)
-		player_data = load_player_data()
-		print("after: ", player_data.inventory)
+	# if player_data_exists():
+	# 	print("before: ", player_data.inventory)
+	# 	player_data = load_player_data()
+	# 	print("after: ", player_data.inventory)
 	# Otherwise, create a new player data object
-	else:
-		player_data = PlayerData.new()
+	player_data = PlayerData.new()
 	
 	# Set the inventory manager's inventory to the saved player data's inventory
 	inventory_manager.inventory = player_data.inventory
@@ -65,26 +63,27 @@ func setup_everything() -> void:
 
 
 func save_player_data() -> void:
-	player_data.inventory = inventory_manager.inventory
-	print("actual player inventory: ", player_data.inventory)
-	ResourceSaver.save(player_data, SAVE_PATH)
-	print("stored player inventory: ", load_player_data().inventory)
+	print("TODO: save player data")
+	# player_data.inventory = inventory_manager.inventory
+	# print("actual player inventory: ", player_data.inventory)
+	# ResourceSaver.save(player_data, SAVE_PATH)
+	# print("stored player inventory: ", load_player_data().inventory)
 
 
-func load_player_data() -> PlayerData:
-	return ResourceLoader.load(SAVE_PATH)
+# func load_player_data() -> PlayerData:
+# 	return ResourceLoader.load(SAVE_PATH)
 
 
-func player_data_exists() -> bool:
-	return ResourceLoader.load(SAVE_PATH) != null
+# func player_data_exists() -> bool:
+# 	return ResourceLoader.load(SAVE_PATH) != null
 
 
-func load_game() -> void:
-	var loaded_player_data = load_player_data()
-	if loaded_player_data:
-		player_data = loaded_player_data
-		inventory_manager.inventory = player_data.inventory
-		# print("Loaded Player Data: ", player_data)
-	else:
-		# print("No saved player data found.")
-		pass
+# func load_game() -> void:
+# 	var loaded_player_data = load_player_data()
+# 	if loaded_player_data:
+# 		player_data = loaded_player_data
+# 		inventory_manager.inventory = player_data.inventory
+# 		# print("Loaded Player Data: ", player_data)
+# 	else:
+# 		# print("No saved player data found.")
+# 		pass

@@ -95,7 +95,7 @@ func generate_a_block(block_position: Vector3i, is_air: bool) -> void:
 			var rng := RandomNumberGenerator.new()
 			rng.randomize()
 			
-			var rarity_chosen := rng.rand_weighted(GameLoop.item_database.block_rarity_spawn_chance.values()) - 1
+			var rarity_chosen := rng.rand_weighted(GameLoop.item_database.block_rarity_spawn_chance.values())
 			var chosen_rarity: BaseBlockResource.BlockRarities = BaseBlockResource.BlockRarities.values()[rarity_chosen]
 			var matching_ore_weights := []
 			var amount_of_iterations_to_skip := GameLoop.item_database.default_block_amount_plus_air

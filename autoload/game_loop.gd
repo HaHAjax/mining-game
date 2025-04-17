@@ -20,20 +20,7 @@ const GEN_AND_MINE_TESTING := preload("res://scenes/testing/gen_testing/gen_and_
 
 
 func _init():
-	
-
-	# player_data = PlayerData.instance
-	# inventory_manager = InventoryManager.new()
-	# item_database = ItemDatabase.new()
-	# block_helper = BlockHelper.new()
-
-	# block_helper.setup_everything()
-	# item_database.set_block_data()
 	pass
-
-	# print("Player Data: ", player_data)
-	# print("Inventory Manager: ", inventory_manager)
-	# print("Item Database: ", item_database)
 
 
 func _ready():
@@ -118,7 +105,7 @@ func start_game() -> void:
 
 	# get_tree().get_root().add_child()
 
-	SingletonManager.load_game()
+	# SingletonManager.load_game()
 
 	# if SingletonManager.load_player_data() != null:
 	# 	player_data = SingletonManager.load_player_data()
