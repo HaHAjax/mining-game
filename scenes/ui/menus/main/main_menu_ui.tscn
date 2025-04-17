@@ -29,12 +29,13 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 text = "Play"
 
-[node name="QuitButton" type="Button" parent="HBoxContainer"]
+[node name="SettingsButton" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-text = "Quit"
+text = "Settings"
 
 [connection signal="pressed" from="HBoxContainer/PlayButton" to="." method="_play_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SettingsButton" to="." method="_settings_button_pressed"]

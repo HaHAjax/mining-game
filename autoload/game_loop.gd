@@ -19,22 +19,6 @@ const PAUSE_MENU_UI := preload("res://scenes/ui/pause/pause_menu.tscn")
 const GEN_AND_MINE_TESTING := preload("res://scenes/testing/gen_testing/gen_and_mine_testing.tscn")
 
 
-enum GameStates {
-	MAIN_MENU,
-	PLAY,
-	PAUSED
-}
-
-var curr_game_state: GameStates = GameStates.MAIN_MENU
-var prev_game_state: GameStates = GameStates.MAIN_MENU
-
-
-# Signals
-signal game_state_changed(old_state: GameStates, new_state: GameStates)
-signal game_paused()
-signal game_unpaused()
-
-
 func _init():
 	
 
@@ -99,36 +83,7 @@ func set_variables(input_player_data: PlayerData, input_inventory_manager: Inven
 	# inventory_manager.load_inventory_visual()
 
 
-func _process(_delta: float) -> void:
-	if prev_game_state != curr_game_state:
-		game_state_changed.emit(prev_game_state, curr_game_state)
-		match curr_game_state:
-			GameStates.MAIN_MENU when prev_game_state == GameStates.PAUSED:
-				print("returning to main menu")
-				pass
-			GameStates.PLAY when prev_game_state == GameStates.MAIN_MENU:
-				print("starting game")
-				start_game()
-				pass
-			GameStates.PAUSED when prev_game_state == GameStates.PLAY:
-				pause_game()
-			GameStates.PLAY when prev_game_state == GameStates.PAUSED:
-				resume_game()
-		prev_game_state = curr_game_state
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause") and (curr_game_state == GameStates.PLAY or curr_game_state == GameStates.PAUSED):
-		match curr_game_state:
-			GameStates.PLAY:
-				curr_game_state = GameStates.PAUSED
-			GameStates.PAUSED:
-				curr_game_state = GameStates.PLAY
-
-
 func pause_game() -> void:
-	# Emit the game paused signal
-	game_paused.emit()
 	# Pause the game
 	get_tree().paused = true
 	# Show the pause menu
@@ -136,8 +91,6 @@ func pause_game() -> void:
 
 
 func resume_game() -> void:
-	# Emit the game unpaused signal
-	game_unpaused.emit()
 	# Unpause the game
 	get_tree().paused = false
 	# Hide the pause menu
@@ -200,16 +153,11 @@ func input_quit() -> void:
 	quit_game()
 
 
-func input_resume_game() -> void:
-	curr_game_state = GameStates.PLAY
-
-
 func go_to_main_menu() -> void:
 	SingletonManager.save_player_data()
 	print("Player data saved.")
 	get_tree().get_root().find_child("GenAndMineTesting", true, false).queue_free()
 	get_tree().get_root().add_child(MAIN_MENU_UI.instantiate())
-	curr_game_state = GameStates.MAIN_MENU
 
 
 func _notification(what) -> void:

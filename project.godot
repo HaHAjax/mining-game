@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SingletonManager="*res://autoload/singleton_manager.gd"
 GameLoop="*res://autoload/game_loop.gd"
+GameState="*res://autoload/game_state.gd"
 
 [editor]
 

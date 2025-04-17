@@ -39,6 +39,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 text = "Resume"
 
+[node name="Settings" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Settings"
+
 [node name="MainMenu" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
@@ -46,13 +53,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 text = "Main Menu"
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-text = "Quit"
-
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

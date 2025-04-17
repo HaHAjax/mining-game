@@ -1,11 +1,11 @@
 extends Control
 
 @onready var play_button: Button = %PlayButton
-@onready var quit_button: Button = %QuitButton
+@onready var quit_button: Button = %SettingsButton
 
 
 func _play_button_pressed() -> void:
-	GameLoop.curr_game_state = GameLoop.GameStates.PLAY
+	GameState.start_play_game()
 
-func _quit_button_pressed() -> void:
-	GameLoop.quit_game()
+func _settings_button_pressed() -> void:
+	GameState.to_settings_menu()

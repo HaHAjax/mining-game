@@ -10,8 +10,6 @@ func _init() -> void:
 
 const SAVE_PATH := "user://player_data.tres"
 
-var stored_player_data: PlayerData = ResourceLoader.load(SAVE_PATH) as PlayerData
-
 @onready var game_loop: Node = get_node("/root/GameLoop")
 @onready var player_data: PlayerData
 @onready var inventory_manager := InventoryManager.new()

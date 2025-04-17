@@ -18,8 +18,8 @@ func _ready():
 	desired_mouse_sensitivity = 1.0 - (mouse_sensitivity / 100.0)
 
 	# GameLoop.connect("game_state_changed", on_pause_unpause, (GameLoop.curr_game_state == GameLoop.GameStates.PAUSED))
-	GameLoop.game_paused.connect(on_pause)
-	GameLoop.game_unpaused.connect(on_unpause)
+	GameState.game_paused.connect(on_pause)
+	GameState.game_unpaused.connect(on_unpause)
 
 
 func _input(event: InputEvent) -> void:
