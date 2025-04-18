@@ -1,11 +1,19 @@
 extends ScrollContainer
 
+## The items in the inventory UI. [br]
+## It is a list of instances of the item row scene. [br]
+## This is only the backend. Get the visual inventory from [code]container.get_children()[/code]
 var items: Array = []
 
+## The inventory manager script.
+## @deprecated: Don't use this. Should switch to [SingletonManager.inventory_manager] instead.
 var inventory_manager: InventoryManager
 
+## The item row scene, as a PackedScene to instantiate many times.
 var item_row_scene := preload("res://scenes/ui/inventory/item_row.tscn")
 
+## The container of all of the item rows. [br]
+## Should really be using this over [code]get_child(0)[/code] lol
 @onready var container: VBoxContainer = %VBoxContainer
 
 
@@ -29,6 +37,7 @@ func _ready() -> void:
 
 ## Adding an item visually [br]
 ## This function is called when an item is added to the inventory for the first time
+## @experimental: This might need to be optimized
 func add_item_visually(item_data: Dictionary) -> void:
 	# Instantiating the item row scene
 	var item_row_instance = item_row_scene.instantiate()
@@ -48,16 +57,17 @@ func add_item_visually(item_data: Dictionary) -> void:
 	items.sort_custom(_sort_visual_inventory_by_rarity)
 
 	# Removing all visual items
-	for i in get_child(0).get_children():
-		get_child(0).remove_child(i)
+	for i in container.get_children():
+		container.remove_child(i)
 	
 	# Adding the sorted items back to the visual inventory
 	for i in items:
-		get_child(0).add_child(i)
+		container.add_child(i)
 
 
 ## Updating the item visually [br]
-## SHould only be called when the item is already in the inventory, but the amount is changed
+## Should only be called when the item is already in the inventory, but the amount is changed
+## @experimental: This might need to be optimized
 func update_item_visually(item_name: String, amount: int) -> void:
 	# Formatting the item name to snake case
 	item_name = item_name.to_snake_case()

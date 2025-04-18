@@ -20,11 +20,16 @@ func _init():
 ## Can be set manually, or automatically by pressing the button above.
 @export var block_resources: Array[BaseBlockResource]
 
+## The path to the folder containing the default block resources
 var default_block_resource_folder_path: String = "res://resources/block_resources/block_data/defaults/"
+## The path to the folder containing the ore resources
 var ore_block_resource_folder_path: String = "res://resources/block_resources/block_data/ores/"
 
-var default_collision_shape := load("uid://dysnpfgth8dg2")
+## The default collision shape for the blocks, if none is set
+var default_collision_shape := preload("uid://dysnpfgth8dg2")
 
+## The block rarities.
+## @experimental: currently hardcoded, should be dynamic in the future 
 var block_rarities: Array[String] = [
 	"common/",
 	"uncommon/",
@@ -35,6 +40,7 @@ var block_rarities: Array[String] = [
 ]
 
 
+## The function that sets up the mesh library to place the blocks, and sets the block resources for the block information at the same index as the mesh library.
 func setup_everything():
 	# Setup the mesh library
 	await setup_mesh_library()
@@ -46,6 +52,7 @@ func setup_everything():
 	notify_property_list_changed()
 
 
+## The function that sets the block resources, used for the block information.
 func set_block_resources():
 	# Clear the block resources array
 	block_resources.clear()
@@ -72,6 +79,7 @@ func set_block_resources():
 					block_resources.append(block_resource)
 
 
+## Sets up the mesh library for the GridMap to place the blocks.
 func setup_mesh_library():
 	# Clear the mesh library
 	clear()
@@ -138,7 +146,8 @@ func setup_mesh_library():
 	# print(get_item_list())
 
 
-# The following 5 functions help to get the block resource variables by name
+## Gets the block rarity by name.
+## The block rarity is used to determine how often that each block in a rarity should spawn in the world.
 func get_block_rarity_by_name(inputted_block_name: String) -> BaseBlockResource.BlockRarities:
 	for block_resource in block_resources:
 		if block_resource.block_name.to_lower() == inputted_block_name:
@@ -148,6 +157,8 @@ func get_block_rarity_by_name(inputted_block_name: String) -> BaseBlockResource.
 	# If the block resource is not found, return none
 	return BaseBlockResource.BlockRarities.NONE
 
+## Gets the block type by name. [br]
+## The block type is used to determine if the block is an ore, air, or a default block.
 func get_block_type_by_name(inputted_block_name: String) -> BaseBlockResource.BlockTypes:
 	for block_resource in block_resources:
 		if block_resource.block_name.to_lower() == inputted_block_name:
@@ -157,6 +168,8 @@ func get_block_type_by_name(inputted_block_name: String) -> BaseBlockResource.Bl
 	# If the block resource is not found, return none
 	return BaseBlockResource.BlockTypes.AIR
 
+## Gets the block spawn depth by name. [br]
+## The spawn depth is for what depth the block should spawn in the world.
 func get_block_spawn_depth_by_name(inputted_block_name: String) -> BaseBlockResource.BlockSpawnDepths:
 	for block_resource in block_resources:
 		if block_resource.block_name.to_lower() == inputted_block_name:
@@ -166,6 +179,8 @@ func get_block_spawn_depth_by_name(inputted_block_name: String) -> BaseBlockReso
 	# If the block resource is not found, return none
 	return BaseBlockResource.BlockSpawnDepths.ANYWHERE
 
+## Gets the block chance to spawn by name. [br]
+## The chance to spawn is used to determine how likely the block is to spawn, if the rarity has been chosen.
 func get_block_chance_to_spawn_by_name(inputted_block_name: String) -> float:
 	for block_resource in block_resources:
 		if block_resource.block_name.to_lower() == inputted_block_name:
@@ -175,6 +190,9 @@ func get_block_chance_to_spawn_by_name(inputted_block_name: String) -> float:
 	# If the block resource is not found, return none
 	return 0.0
 
+## Gets the block index by name. [br]
+## The block index is determined by the order of the block resources in the array and the mesh library. [br]
+## The block index should be unique from every other block.
 func get_block_index_by_name(inputted_block_name: String) -> int:
 	for i in range(block_resources.size()):
 		if block_resources[i].block_name.to_lower() == inputted_block_name:
@@ -185,7 +203,8 @@ func get_block_index_by_name(inputted_block_name: String) -> int:
 	return -1
 
 
-# The following 5 functions help to get the block resource variables by index
+## Gets the block rarity by index. [br]
+## The block rarity is used to determine how often that each block in a rarity should spawn in the world.
 func get_block_rarity_by_index(index: int) -> BaseBlockResource.BlockRarities:
 	if index >= 0 and index < block_resources.size():
 		return block_resources[index].rarity
@@ -193,6 +212,8 @@ func get_block_rarity_by_index(index: int) -> BaseBlockResource.BlockRarities:
 	# If the index is out of bounds, return none
 	return BaseBlockResource.BlockRarities.NONE
 
+## Gets the block type by index. [br]
+## The block type is used to determine if the block is an ore, air, or a default block.
 func get_block_type_by_index(index: int) -> BaseBlockResource.BlockTypes:
 	if index >= 0 and index < block_resources.size():
 		return block_resources[index].block_type
@@ -200,6 +221,8 @@ func get_block_type_by_index(index: int) -> BaseBlockResource.BlockTypes:
 	# If the index is out of bounds, return none
 	return BaseBlockResource.BlockTypes.AIR
 
+## Gets the block spawn depth by index. [br]
+## The spawn depth is for what depth the block should spawn in the world.
 func get_block_spawn_depth_by_index(index: int) -> BaseBlockResource.BlockSpawnDepths:
 	if index >= 0 and index < block_resources.size():
 		return block_resources[index].spawn_depth
@@ -207,6 +230,8 @@ func get_block_spawn_depth_by_index(index: int) -> BaseBlockResource.BlockSpawnD
 	# If the index is out of bounds, return none
 	return BaseBlockResource.BlockSpawnDepths.ANYWHERE
 
+## Gets the block's chance to spawn by index. [br]
+## The chance to spawn is used to determine how likely the block is to spawn, if the rarity has been chosen.
 func get_block_chance_to_spawn_by_index(index: int) -> float:
 	if index >= 0 and index < block_resources.size():
 		return block_resources[index].chance_to_spawn
@@ -214,6 +239,9 @@ func get_block_chance_to_spawn_by_index(index: int) -> float:
 	# If the index is out of bounds, return none
 	return 0.0
 
+## Gets the block name by index. [br]
+## The block name is used to identify the block in the world. [br]
+## The block name should be unique from every other block.
 func get_block_name_by_index(index: int) -> String:
 	if index >= 0 and index < block_resources.size():
 		return block_resources[index].block_name
@@ -226,6 +254,8 @@ func _ready():
 	pass
 
 
+## Sorts the block resources by rarity. [br]
+## Should only be used when sorting an array.
 func sort_by_rarity(a: String, b: String) -> bool:
 	var a_file_path: String
 	var b_file_path: String
@@ -259,6 +289,8 @@ func sort_by_rarity(a: String, b: String) -> bool:
 	return false
 
 
+## Gets the amount of files in a directory.
+## @deprecated: currently unused, but may be needed in the future.
 func get_file_count(path: String) -> int:
 	var dir := DirAccess.open(path)
 	dir.list_dir_begin()
