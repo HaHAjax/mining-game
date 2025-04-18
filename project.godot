@@ -93,4 +93,3 @@ textures/default_filters/use_nearest_mipmap_filter=true
 environment/ssao/quality=1
 occlusion_culling/occlusion_rays_per_thread=256
 anti_aliasing/quality/use_debanding=true
-occlusion_culling/use_occlusion_culling=true

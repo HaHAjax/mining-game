@@ -1,21 +1,39 @@
 extends Node
 
+## The player data singleton.
+## @experimental: This may or may not actually be used, and may or may not even be used.
 var player_data: PlayerData
+## The inventory manager singleton.
+## @deprecated: Use the variable from the SingletonManager instead.
 var inventory_manager: InventoryManager
+## The item database singleton.
+## @deprecated: Use the variable from the SingletonManager instead.
 var item_database: ItemDatabase
+## The block helper singleton.
+## @deprecated: Use the variable from the SingletonManager instead.
 var block_helper: BlockHelper
+## The inventory UI scene, as a PackedScene.
 var inventory_ui_scene := preload("res://scenes/ui/inventory/inventory_ui.tscn")
-var inventory_ui: Control
+## The inventory UI instance. Will be instantiated on game start.
+var inventory_ui: ScrollContainer
+## The player scene, as a PackedScene.
 var player_scene := preload("res://scenes/player/player.tscn")
+## The actual player scene instance.
 var player: CharacterBody3D
 
+## The save path for the player data.
+## @deprecated: A different approach will be used in the future. Avoid using this.
 const SAVE_PATH := "user://player_data.tres"
 
+## The instantiated pause menu scene, to be used when the game is paused.
 var pause_menu: Control
 
-
+## The main menu UI scene, as a PackedScene.
 const MAIN_MENU_UI := preload("res://scenes/ui/menus/main/main_menu_ui.tscn")
+## The pause menu UI scene, as a PackedScene.
 const PAUSE_MENU_UI := preload("res://scenes/ui/pause/pause_menu.tscn")
+## The scene for the main scene, as a PackedScene.
+## @experimental: Rename this variable and the scene name to more accurately reflect what it will be used for.
 const GEN_AND_MINE_TESTING := preload("res://scenes/testing/gen_testing/gen_and_mine_testing.tscn")
 
 
@@ -27,39 +45,17 @@ func _ready():
 	# Making sure that the game loop is always active
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 
+	# Instantiates the pause menu UI
 	pause_menu = PAUSE_MENU_UI.instantiate()
 
+	# Adds the pause menu to the scene tree
 	get_tree().get_root().add_child.call_deferred(pause_menu)
 
+	# Hides the pause menu, as it should not be active just yet
 	pause_menu.hide()
 
 
-	# var inventory = inventory_manager.inventory
-	# print("Inventory: ", inventory)
-
-	# player_scene = get_tree().get_root().get_child(1).get_child(1)
-	# player_scene.hud.add_child(inventory_ui_scene.instantiate())
-	# inventory_ui = player_scene.get_child(3).get_child(0).get_child(1)
-
-	# inventory_manager.set_inventory_ui(inventory_ui)
-	pass
-
-	# inventory_manager.set_inventory_ui(inventory_ui)
-
-	# inventory_manager.load_inventory_visual()
-
-	# PlayerController.hud.add_child(inventory_ui_scene)
-
-	# # Load player_scene data if it exists
-	# var loaded_player_data = load_player_data()
-	# if loaded_player_data:
-	# 	player_data = loaded_player_data
-	# 	inventory_manager.inventory = player_data.inventory
-	# 	print("Loaded Player Data: ", player_data)
-	# else:
-	# 	print("No saved player_scene data found.")
-
-
+## Sets the variables for the game loop.
 func set_variables(input_player_data: PlayerData, input_inventory_manager: InventoryManager, input_item_database: ItemDatabase, input_block_helper: BlockHelper) -> void:
 	player_data = input_player_data
 	inventory_manager = input_inventory_manager
@@ -70,6 +66,7 @@ func set_variables(input_player_data: PlayerData, input_inventory_manager: Inven
 	# inventory_manager.load_inventory_visual()
 
 
+## Pauses the game
 func pause_game() -> void:
 	# Pause the game
 	get_tree().paused = true
@@ -77,6 +74,7 @@ func pause_game() -> void:
 	pause_menu.show()
 
 
+## Resumes the game from the pause menu.
 func resume_game() -> void:
 	# Unpause the game
 	get_tree().paused = false
@@ -84,71 +82,61 @@ func resume_game() -> void:
 	pause_menu.hide()
 
 
+## Starts the game
 func start_game() -> void:
+	# Unloads the main menu
 	get_tree().get_root().find_child("MainMenu", true, false).queue_free()
-	# print(get_tree().get_root().find_child("MainMenu", true, false))
+	
+	# Instantiates the mining scene into the scene tree
 	get_tree().get_root().add_child(GEN_AND_MINE_TESTING.instantiate())
 
+	# Instantiates the player
 	player = player_scene.instantiate()
-	player.position.y += 1.1
+	player.position.y += 1.1 # Offset the player to be above the ground
 
 
+	# Adds the player as a child of the mining scene
 	get_tree().get_root().find_child("GenAndMineTesting", true, false).add_child(player)
 
+	# Instantiates the inventory UI
 	inventory_ui = inventory_ui_scene.instantiate()
 
+	# Sets up all things necessary for the SingletonManager
 	SingletonManager.setup_everything()
+
+	# Sorts the inventory UI by rarity
+	inventory_manager.set_inventory_ui(inventory_ui)
 	
+	# Adds the inventory UI as a child of the player scene
 	get_tree().get_root().find_child("Player", true, false).find_child("Control", true, false).add_child(inventory_ui)
 
-	# inventory_manager.set_inventory_ui(inventory_ui)
-
-	# get_tree().get_root().add_child()
-
-	# SingletonManager.load_game()
-
-	# if SingletonManager.load_player_data() != null:
-	# 	player_data = SingletonManager.load_player_data()
-	# 	# print("Player data not null: ", player_data.inventory)
-	# # print(player_data.inventory)
-	# if player_data.inventory.is_empty():
-	# 	# print("Player data inventory is empty")
-	# 	if inventory_manager.inventory.is_empty():
-	# 		# print("Inventory manager inventory is empty")
-	# 		inventory_manager.set_inventory_from_database()
-	# 	player_data.set_inventory_from_manager()
-	# else:
-	# 	# print("Player data inventory is not empty")
-	# 	inventory_manager.inventory = player_data.inventory
-
-	inventory_ui.set_inventory_manager(inventory_manager)
-
-	inventory_manager.set_inventory_ui(inventory_ui)
+	# Loads the visuals for the inventory UI
 	inventory_manager.load_inventory_visual()
 
+	# Moves the pause menu to the front, so that it can be interacted with
 	pause_menu.move_to_front()
 
 
-func quit_game() -> void:
+## The private quit game function. [br]
+## Should only be called inside the GameLoop script.
+## @deprecated: This game will run in web browsers, so quitting should not be possible.
+func _quit_game() -> void:
 	# Save player_scene data when quitting the game
 	SingletonManager.save_player_data()
 	print("Player data saved.")
 	get_tree().quit()
 
 
+## Tells the game loop to quit the game.
+## @deprecated: This game will run in web browsers, so quitting should not be possible.
 func input_quit() -> void:
-	quit_game()
+	_quit_game()
 
 
+## Makes the game go back to the main menu. [br]
+## Should only be called when the game is not in the main menu, and has not just started.
 func go_to_main_menu() -> void:
 	SingletonManager.save_player_data()
 	print("Player data saved.")
 	get_tree().get_root().find_child("GenAndMineTesting", true, false).queue_free()
 	get_tree().get_root().add_child(MAIN_MENU_UI.instantiate())
-
-
-func _notification(what) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		# Save player_scene data when the game is closed
-		SingletonManager.save_player_data()
-		print("Player data saved.")

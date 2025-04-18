@@ -54,6 +54,6 @@ func add_item(item_name: String, amount: int = 1) -> void:
 			inventory_ui.add_item_visually(inventory[item_name])
 		else:
 			inventory_ui.update_item_visually(item_name, inventory[item_name]["amount"])
-	inventory_ui.get_child(1).get_children().sort_custom(inventory_ui.sort_visual_inventory_by_rarity)
+	inventory_ui.get_child(0).get_children().sort_custom(inventory_ui.sort_visual_inventory_by_rarity)
 	# else:
 	# 	print("Item not found in inventory: ", item_name)
