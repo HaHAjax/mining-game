@@ -13,6 +13,7 @@ func _init():
 # - Put comments here and there
 
 ## Automagically sets everything up :>
+## @deprecated: This doesn't work anymore for some reason, so don't use the button
 @export_tool_button("Setup Everything", "Callable") var setup_everything_button := setup_everything
 
 ## The resources for each block.

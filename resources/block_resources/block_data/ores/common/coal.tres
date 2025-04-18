@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BaseBlockResource" load_steps=6 format=3 uid="uid://cgm6a10s8i6bw"]
 
 [ext_resource type="Texture2D" uid="uid://4x7k5n2wams8" path="res://assets/textures/WIP_no-texture.png" id="1_nu75f"]
-[ext_resource type="Texture2D" uid="uid://civrl7asl8rlf" path="res://assets/textures/ore_blocks/common/coal.png" id="1_ujwyt"]
+[ext_resource type="Texture2D" uid="uid://cish02ihu2lqo" path="res://assets/textures/ore_blocks/common/coal.png" id="1_ujwyt"]
 [ext_resource type="Script" uid="uid://h82db102rlur" path="res://resources/block_data/base_block_resource.gd" id="2_ujwyt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dv177"]

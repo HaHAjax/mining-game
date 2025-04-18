@@ -53,7 +53,6 @@ func setup_everything() -> void:
 	item_database.set_block_data()
 	inventory_manager.set_inventory_from_database()
 	player_data.set_inventory_from_manager()
-	game_loop.inventory_ui.set_inventory_manager(inventory_manager)
 	for block_chance in item_database.block_data.values():
 		if block_chance["type"] != 0 and block_chance["type"] != 1:
 			block_spawn_chances.append(block_chance["chance_to_spawn"])
