@@ -7,6 +7,7 @@ enum GameStates {
 	MAIN_MENU, ## The main menu.
 	SETTINGS_MENU, ## The settings menu.
 	PLAY, ## When the game is being played.
+	LOADING, ## When the game is loading.
 	PAUSED ## When the game is paused.
 }
 
@@ -24,7 +25,8 @@ signal game_state_changed(prev_state: GameStates, curr_state: GameStates)
 signal game_paused
 ## Emitted when the game is unpaused.
 signal game_unpaused
-
+signal game_loading
+signal game_loaded
 
 func _ready() -> void:
 	# Making sure that the game loop is always active
@@ -45,8 +47,18 @@ func _process(_delta):
 			GameStates.SETTINGS_MENU:
 				# put the settings menu code here
 				pass
-			GameStates.PLAY when last_game_state == GameStates.MAIN_MENU:
+			GameStates.PLAY when last_game_state == GameStates.MAIN_MENU: # REMOVE THIS LATER FOR THE LOADING
 				GameLoop.start_game()
+			GameStates.LOADING when last_game_state == GameStates.MAIN_MENU:
+				# Emit the signal for loading the game
+				game_loading.emit()
+				# Load the game
+				GameLoop.load_game()
+			GameStates.PLAY when last_game_state == GameStates.LOADING:
+				# Emit the signal for loading the game
+				game_loaded.emit()
+				# start the game
+				# GameLoop.start_game()
 			GameStates.PLAY when last_game_state == GameStates.PAUSED:
 				# Emit the signal for unpausing the game
 				game_unpaused.emit()
@@ -61,16 +73,25 @@ func _process(_delta):
 	prev_game_state = curr_game_state
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause") and (curr_game_state == GameStates.PLAY or curr_game_state == GameStates.PAUSED):
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("pause") and (curr_game_state == GameStates.PLAY or curr_game_state == GameStates.PAUSED):
 		match curr_game_state:
 			GameStates.PLAY:
-				curr_game_state = GameStates.PAUSED
+				pause_game()
 			GameStates.PAUSED:
-				curr_game_state = GameStates.PLAY
+				unpause_game()
+
+
+## Starts loading the game.
+func start_load_game() -> void:
+	# Changes the state
+	curr_game_state = GameStates.LOADING
+	# Emit the signal for loading the game
+	game_loading.emit()
 
 
 ## Starts the game.
+## @deprecated: Use [method start_load_game] instead.
 func start_play_game() -> void:
 	curr_game_state = GameStates.PLAY
 

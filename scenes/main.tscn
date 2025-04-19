@@ -1,8 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bmynol7gm28ep"]
-
-[ext_resource type="Script" uid="uid://vcu2atjc2c22" path="res://scenes/main.gd" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dsed1w0exrxkf" path="res://scenes/player/player.tscn" id="2_0wfyh"]
-[ext_resource type="Texture2D" uid="uid://ds2bgsaucdyiv" path="res://addons/kenney_prototype_textures/dark/texture_09.png" id="3_sugp2"]
+[gd_scene load_steps=4 format=3 uid="uid://bmynol7gm28ep"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_top_color = Color(0.220681, 0.423697, 0.832193, 1)
@@ -17,34 +13,11 @@ sky_material = SubResource("ProceduralSkyMaterial_o5qli")
 background_mode = 2
 sky = SubResource("Sky_sugp2")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
-albedo_texture = ExtResource("3_sugp2")
-uv1_scale = Vector3(32, 32, 32)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_tbgi4"]
-material = SubResource("StandardMaterial3D_sugp2")
-size = Vector2(64, 64)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tefeu"]
-points = PackedVector3Array(-32, 0, -32, -32, 0, 32, 32, 0, -32, 32, 0, 32)
-
 [node name="Main" type="Node3D"]
-script = ExtResource("1_ig7tw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.606739, -0.733131, -0.307224, 0.362482, -0.0887915, 0.927751, -0.707443, -0.674266, 0.211874, 0, 0, 0)
-
-[node name="Player" parent="." instance=ExtResource("2_0wfyh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
-
-[node name="Floor" type="StaticBody3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("PlaneMesh_tbgi4")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("ConvexPolygonShape3D_tefeu")
+shadow_enabled = true

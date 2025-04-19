@@ -33,8 +33,20 @@ const MAIN_MENU_UI := preload("res://scenes/ui/menus/main/main_menu_ui.tscn")
 ## The pause menu UI scene, as a PackedScene.
 const PAUSE_MENU_UI := preload("res://scenes/ui/pause/pause_menu.tscn")
 ## The scene for the main scene, as a PackedScene.
-## @experimental: Rename this variable and the scene name to more accurately reflect what it will be used for.
+## @deprecated: Use this only for testing.
 const GEN_AND_MINE_TESTING := preload("res://scenes/testing/gen_testing/gen_and_mine_testing.tscn")
+
+const MAIN_SCENE := preload("res://scenes/main.tscn")
+
+const GRID_MAP_SCENE := preload("res://scenes/misc/grid_map_scene.tscn")
+
+var grid_map_scene_instance: GridMap
+
+var main_scene_instance: Node3D
+
+const LOADING_SCREEN := preload("res://scenes/ui/loading/loading_screen.tscn")
+
+var loading_screen_instance: LoadingScreenScript
 
 
 func _init():
@@ -82,21 +94,42 @@ func resume_game() -> void:
 	pause_menu.hide()
 
 
+func load_game() -> void:
+	# # Unloads the main menu
+	get_tree().get_root().find_child("MainMenu", true, false).queue_free()
+
+	loading_screen_instance = LOADING_SCREEN.instantiate()
+	
+	get_tree().get_root().add_child(loading_screen_instance)
+
+	loading_screen_instance.set_next_scene(GRID_MAP_SCENE.resource_path)
+
+
+	start_game()
+
+
 ## Starts the game
 func start_game() -> void:
-	# Unloads the main menu
-	get_tree().get_root().find_child("MainMenu", true, false).queue_free()
-	
-	# Instantiates the mining scene into the scene tree
-	get_tree().get_root().add_child(GEN_AND_MINE_TESTING.instantiate())
+	# grid_map_scene_instance = await loading_screen_instance.loading_complete
+	# Instantiates the grid map scene into the scene tree
+	get_tree().get_root().add_child(await loading_screen_instance.loading_complete)
+
+	loading_screen_instance.set_next_scene(MAIN_SCENE.resource_path)
+
+	get_tree().get_root().add_child(await loading_screen_instance.loading_complete)
+
+	# # Instantiates the main scene
+	# main_scene_instance = MAIN_SCENE.instantiate()
+
+	# # Adds the main scene to the scene tree
+	# get_tree().get_root().add_child(main_scene_instance)
 
 	# Instantiates the player
 	player = player_scene.instantiate()
 	player.position.y += 1.1 # Offset the player to be above the ground
 
-
-	# Adds the player as a child of the mining scene
-	get_tree().get_root().find_child("GenAndMineTesting", true, false).add_child(player)
+	# Adds the player to the scene tree
+	get_tree().get_root().find_child("Main", true, false).add_child(player)
 
 	# Instantiates the inventory UI
 	inventory_ui = inventory_ui_scene.instantiate()
@@ -104,7 +137,7 @@ func start_game() -> void:
 	# Sets up all things necessary for the SingletonManager
 	SingletonManager.setup_everything()
 
-	# Sorts the inventory UI by rarity
+	# Gives the inventory manager the proper inventory UI instance
 	inventory_manager.set_inventory_ui(inventory_ui)
 	
 	# Adds the inventory UI as a child of the player scene
@@ -115,6 +148,10 @@ func start_game() -> void:
 
 	# Moves the pause menu to the front, so that it can be interacted with
 	pause_menu.move_to_front()
+
+	loading_screen_instance.queue_free()
+
+	GameState.curr_game_state = GameState.GameStates.PLAY
 
 
 ## The private quit game function. [br]

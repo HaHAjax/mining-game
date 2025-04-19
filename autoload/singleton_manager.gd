@@ -56,7 +56,7 @@ func setup_everything() -> void:
 	for block_chance in item_database.block_data.values():
 		if block_chance["type"] != 0 and block_chance["type"] != 1:
 			block_spawn_chances.append(block_chance["chance_to_spawn"])
-	grid_map_script = get_tree().get_root().find_child("GenAndMineTesting", true, false).find_child("GridMap", true, false) as GridMapScript
+	grid_map_script = get_tree().get_root().find_child("GridMap", true, false) as GridMapScript
 	if grid_map_script == null:
 		return
 	grid_map_script.set_weights(block_spawn_chances)

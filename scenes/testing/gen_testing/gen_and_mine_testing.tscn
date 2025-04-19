@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://x4krb1dfjd6k"]
+[gd_scene load_steps=5 format=3 uid="uid://x4krb1dfjd6k"]
 
-[ext_resource type="MeshLibrary" uid="uid://cxkcq2td3xrso" path="res://resources/mesh_libraries/mesh_library_test_2a.tres" id="2_vfr56"]
-[ext_resource type="Script" uid="uid://ccsh7huvgk18m" path="res://scenes/testing/gen_testing/grid_map_script.gd" id="3_2b6te"]
+[ext_resource type="PackedScene" uid="uid://c0hfkkvb7o116" path="res://scenes/misc/grid_map_scene.tscn" id="1_7mkfr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2ctto"]
 sky_top_color = Color(0.220681, 0.423697, 0.832193, 1)
@@ -22,15 +21,9 @@ fog_light_energy = 0.5
 fog_depth_begin = 209.0
 fog_depth_end = 4000.0
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_45kte"]
-
 [node name="GenAndMineTesting" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cpgsw")
 
-[node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("2_vfr56")
-physics_material = SubResource("PhysicsMaterial_45kte")
-cell_size = Vector3(1, 1, 1)
-script = ExtResource("3_2b6te")
+[node name="GridMap" parent="." instance=ExtResource("1_7mkfr")]

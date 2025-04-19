@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwo22py4b8gij"]
+
+[ext_resource type="Script" uid="uid://csfvhjqs1jwi1" path="res://scenes/ui/loading/loading_screen.gd" id="1_3880h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rm1o2"]
+font_size = 80
+
+[node name="LoadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3880h")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Loading..."
+label_settings = SubResource("LabelSettings_rm1o2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.150174
+anchor_top = 0.458333
+anchor_right = 0.849826
+anchor_bottom = 0.541667
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ProgressNumber" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1

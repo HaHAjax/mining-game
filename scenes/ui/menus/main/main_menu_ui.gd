@@ -5,7 +5,7 @@ extends Control
 
 
 func _play_button_pressed() -> void:
-	GameState.start_play_game()
+	GameState.start_load_game()
 
 func _settings_button_pressed() -> void:
 	GameState.to_settings_menu()
