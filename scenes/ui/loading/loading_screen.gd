@@ -23,7 +23,7 @@ func _process(_delta) -> void:
 	set_visual_progress(progress[0] * 100)
 
 	await RenderingServer.frame_post_draw
-	print("progress: ", progress[0] * 100)
+	# print("progress: ", progress[0] * 100)
 
 	if progress[0] == 1:
 		packed_scene = ResourceLoader.load_threaded_get(next_scene)
@@ -34,6 +34,7 @@ func _process(_delta) -> void:
 ## Sets the progress bar to be the given value.
 ## [param value] should be between 0 and 100, like a percentage.
 func set_visual_progress(value: float) -> void:
+	await RenderingServer.frame_post_draw
 	$VBoxContainer/ProgressBar.value = value
 	$VBoxContainer/ProgressNumber.text = str(value) + "%"
 

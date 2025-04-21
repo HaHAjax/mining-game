@@ -25,8 +25,8 @@ signal game_state_changed(prev_state: GameStates, curr_state: GameStates)
 signal game_paused
 ## Emitted when the game is unpaused.
 signal game_unpaused
-signal game_loading
-signal game_loaded
+signal game_start_load
+signal game_finish_load
 
 func _ready() -> void:
 	# Making sure that the game loop is always active
@@ -51,12 +51,12 @@ func _process(_delta):
 				GameLoop.start_game()
 			GameStates.LOADING when last_game_state == GameStates.MAIN_MENU:
 				# Emit the signal for loading the game
-				game_loading.emit()
+				game_start_load.emit()
 				# Load the game
 				GameLoop.load_game()
 			GameStates.PLAY when last_game_state == GameStates.LOADING:
 				# Emit the signal for loading the game
-				game_loaded.emit()
+				game_finish_load.emit()
 				# start the game
 				# GameLoop.start_game()
 			GameStates.PLAY when last_game_state == GameStates.PAUSED:
@@ -87,7 +87,7 @@ func start_load_game() -> void:
 	# Changes the state
 	curr_game_state = GameStates.LOADING
 	# Emit the signal for loading the game
-	game_loading.emit()
+	game_start_load.emit()
 
 
 ## Starts the game.

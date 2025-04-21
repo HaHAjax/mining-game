@@ -137,6 +137,8 @@ func start_game() -> void:
 	# Sets up all things necessary for the SingletonManager
 	SingletonManager.setup_everything()
 
+	# await SingletonManager.everything_set_up
+
 	# Gives the inventory manager the proper inventory UI instance
 	inventory_manager.set_inventory_ui(inventory_ui)
 	

@@ -45,8 +45,12 @@ func setup_everything():
 	# Setup the mesh library
 	await setup_mesh_library()
 
+	GameLoop.loading_screen_instance.set_visual_progress(50)
+
 	# Set the block resources
 	await set_block_resources()
+
+	GameLoop.loading_screen_instance.set_visual_progress(99)
 
 	# Make it update in the editor
 	notify_property_list_changed()

@@ -28,6 +28,8 @@ const SAVE_PATH := "user://player_data.tres"
 ## All of the block spawn chances, just for the grid_map_script.
 var block_spawn_chances: Array[float]
 
+signal everything_set_up
+
 
 func _ready():
 	# Temporary. Will use a different approach in the future.
@@ -54,7 +56,7 @@ func setup_everything() -> void:
 	inventory_manager.set_inventory_from_database()
 	player_data.set_inventory_from_manager()
 	for block_chance in item_database.block_data.values():
-		if block_chance["type"] != 0 and block_chance["type"] != 1:
+		if block_chance["type"] > 1:
 			block_spawn_chances.append(block_chance["chance_to_spawn"])
 	grid_map_script = get_tree().get_root().find_child("GridMap", true, false) as GridMapScript
 	if grid_map_script == null:
@@ -62,6 +64,8 @@ func setup_everything() -> void:
 	grid_map_script.set_weights(block_spawn_chances)
 	# print("from autoload_manager: ", grid_map_script)
 	grid_map_script.generate_initial_blocks()
+
+	everything_set_up.emit()
 
 
 ## The function that will save the player's data.
